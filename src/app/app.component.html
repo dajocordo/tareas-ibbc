@@ -28,9 +28,6 @@
         [ngStyle]="getAccordionStyle(i)">
         <p-accordion-header>
           <div class="w-1/4">
-            {{ item.titulo }}
-          </div>
-          <div class="w-1/4">
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
@@ -42,7 +39,7 @@
               </div>
             </p-tag>
           </div>
-          <div class="w-1/4">
+          <div class="w-1/3">
             <p-tag class="" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
@@ -54,8 +51,9 @@
               </div>
             </p-tag>
           </div>
-          <div class="w-1/4">
-            {{ item.preview }}
+          <div class="w-1/3">
+            {{ item.titulo }}
+            <p class="txt-blue1">{{ item.preview }}</p>
           </div>
         </p-accordion-header>
         <p-accordion-content>
@@ -116,16 +114,14 @@
     <p-table [value]="exposFiltered" stripedRows [tableStyle]="{ 'width': '100%' }">
       <ng-template #header>
         <tr>
-          <th [style]="{'width':'5%'}">Grupo</th>
           <th [style]="{'width':'20%'}">Fecha</th>
           <th [style]="{'width':'20%'}">Materia</th>
           <th [style]="{'width':'20%'}">Integrantes</th>
-          <th [style]="{'width':'35%'}">Tema</th>
+          <th [style]="{'width':'40%'}">Tema</th>
         </tr>
       </ng-template>
       <ng-template #body let-item>
         <tr>
-          <td>{{ item.grupo }}</td>
           <td>
             <p-tag class="tag2">
               <span>🗓️ {{ item.date }}</span>
@@ -150,6 +146,7 @@
             </div>
           </td>
           <td>
+            Grupo # {{ item.grupo }}
             {{ item.tema }}
           </td>
         </tr>
@@ -162,14 +159,20 @@
     <p-table [value]="predicas" stripedRows [tableStyle]="{ 'width': '100%' }">
       <ng-template #header>
         <tr>
+          <th>Pastor</th>
           <th>Libro</th>
           <th>Fecha</th>
           <th>Materia</th>
-          <th>Responsable</th>
         </tr>
       </ng-template>
       <ng-template #body let-item>
         <tr>
+          <td>
+            <div class="flex items-center gap-2">
+              <p-avatar [image]="item.foto" shape="circle" size="normal"></p-avatar>
+              <span class="txt-blue">{{ item.compa }}</span>
+            </div>
+          </td>
           <td>{{ item.libro }}</td>
           <td>
             <p-tag class="tag2">
@@ -180,12 +183,6 @@
             <p-tag [severity]="item.severity">
               <span>✍🏽 {{ item.materia }}</span>
             </p-tag>
-          </td>
-          <td>
-            <div class="flex items-center gap-2">
-              <p-avatar [image]="item.foto" shape="circle" size="normal"></p-avatar>
-              <span class="txt-blue">{{ item.compa }}</span>
-            </div>
           </td>
         </tr>
       </ng-template>
