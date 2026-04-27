@@ -551,79 +551,79 @@ export class AppComponent implements OnInit {
       id: 1,
       apodo: 'Castellon',
       nombre: 'Josue Castellon',
-      foto: '/fotos/caste.png'
+      foto: 'fotos/caste.png'
     },
     {
       id: 2,
       apodo: 'Rebeca',
       nombre: 'Rebeca Cornejo',
-      foto: '/fotos/rebe.png'
+      foto: 'fotos/rebe.png'
     },
     {
       id: 3,
       apodo: 'Colin',
       nombre: 'Colin Carvell',
-      foto: '/fotos/colin.png'
+      foto: 'fotos/colin.png'
     },
     {
       id: 4,
       apodo: 'Salvador',
       nombre: 'Salvador Romero',
-      foto: '/fotos/salva.png'
+      foto: 'fotos/salva.png'
     },
     {
       id: 5,
       apodo: 'Mario',
       nombre: 'Mario Jeremias',
-      foto: '/fotos/mario.png'
+      foto: 'fotos/mario.png'
     },
     {
       id: 6,
       apodo: 'Jasen',
       nombre: 'Jasen de Jesus',
-      foto: '/fotos/jasen.png'
+      foto: 'fotos/jasen.png'
     },
     {
       id: 7,
       apodo: 'Ericka',
       nombre: 'Ericka de Mena',
-      foto: '/fotos/ericka.png'
+      foto: 'fotos/ericka.png'
     },
     {
       id: 8,
       apodo: 'Lukas',
       nombre: 'Lukas Gonzalez',
-      foto: '/fotos/lukas.png'
+      foto: 'fotos/lukas.png'
     },
     {
       id: 9,
       apodo: 'Ricky',
       nombre: 'Ricky Bonilla',
-      foto: '/fotos/ricky.png'
+      foto: 'fotos/ricky.png'
     },
     {
       id: 10,
       apodo: 'DJ',
       nombre: 'David Josue',
-      foto: '/fotos/dj.png'
+      foto: 'fotos/dj.png'
     },
     {
       id: 11,
       apodo: 'Javy',
       nombre: 'Javy Saenz',
-      foto: '/fotos/male.png'
+      foto: 'fotos/male.png'
     },
     {
       id: 12,
       apodo: 'Senia',
       nombre: 'Senia Flores',
-      foto: '/fotos/female.png'
+      foto: 'fotos/female.png'
     },
     {
       id: 14,
       apodo: 'Jonathan',
       nombre: 'Jonathan',
-      foto: '/fotos/male.png'
+      foto: 'fotos/male.png'
     }
   ]
 
