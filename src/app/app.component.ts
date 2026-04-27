@@ -469,7 +469,7 @@ export class AppComponent implements OnInit {
       libro: 'Mateo',
       encargadoCod: 1,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 27 abr',
       tipo: 1
     },
     {
