@@ -1,1 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
+
+.container-bordered {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+h1 {
+  margin-bottom: 24px; // Espacio debajo del h1
+}
+
+.p2 {
+  margin-bottom: 32px; // Espacio debajo del div
+}
+
+.tag2 {
+  border: 2px solid var(--border-color) !important;
+  background: transparent !important;
+  color: var(--text-color) !important;
+}
+
+.txt-blue {
+  color: rgb(35, 88, 141);
+  font-weight: 600;
+  letter-spacing: 0.07px;
+}
+
+
+
+/*    ACORDION    */
+.striped-accordion .p-accordion-panel:nth-child(odd) {
+  background: linear-gradient(to bottom, #ffffff, #ffffff);
+}
+
+.striped-accordion .p-accordion-panel:nth-child(even) {
+  background: linear-gradient(to bottom, #f8f9fa, #f8f9fa);
+}
+
+.striped-accordion .p-accordion-panel:nth-child(odd) .p-accordion-header {
+  background-color: #ffffff !important;
+}
+
+.striped-accordion .p-accordion-panel:nth-child(even) .p-accordion-header {
+  background-color: #f8f9fa !important;
+}
+
+
+
+
+/*-----------------| IBBC |-----------------*/
+
+@media (max-width: 768px) {
+  .accordion-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .accordion-header > div {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .accordion-header {
+    flex-direction: row;
+  }
+
+  .accordion-header > div {
+    width: 25%;
+  }
+}
