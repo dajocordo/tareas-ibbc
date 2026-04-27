@@ -180,21 +180,21 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 10,
-      titulo: 'Tarea # 3',
-      preview: 'Portafolio Doctrinal',
-      materiaCod: 4,
-      detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\\n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
-      date: 'mie, 20 may',
-      tipo: 1
-    },
-    {
       id: 11,
       titulo: 'Tarea # 3',
       preview: 'Nuevo testamento',
       materiaCod: 1,
       detalles: 'Presentar una introducción a cada libro del Nuevo Testamento que incluya información básica sobre cada libro, su autor, propósito, sus destinatarios, fecha, tema, y un bosquejo corto y sencillo.',
       date: 'lun, 11 may',
+      tipo: 1
+    },
+    {
+      id: 10,
+      titulo: 'Tarea # 3',
+      preview: 'Portafolio Doctrinal',
+      materiaCod: 4,
+      detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\\n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
+      date: 'mie, 20 may',
       tipo: 1
     },
     {
@@ -302,6 +302,19 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
+      id: 14,
+      grupo: 4,
+      integrantes: [
+        { id: 1 },
+        { id: 4 }
+      ],
+      materiaCod: 1,
+      tema: 'Hebreos',
+      severity: 'info',
+      date: 'lun, 04 may',
+      tipo: 1
+    },
+    {
       id: 7,
       grupo: 5,
       tema: 'Nueve claves para preparar mensajes biblicos, primera parte (E,F,G,H,I)',
@@ -362,6 +375,18 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
+      id: 15,
+      grupo: 3,
+      integrantes: [
+        { id: 5 },
+        { id: 9 }
+      ],
+      materiaCod: 1,
+      tema: 'Efesios',
+      date: 'lun, 25 may',
+      tipo: 1
+    },
+    {
       id: 12,
       grupo: 5,
       tema: 'Desata tu FORMA para la vida',
@@ -384,31 +409,6 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 26 may',
-      tipo: 1
-    },
-    {
-      id: 14,
-      grupo: 4,
-      integrantes: [
-        { id: 1 },
-        { id: 4 }
-      ],
-      materiaCod: 1,
-      tema: 'Hebreos',
-      severity: 'info',
-      date: 'lun, 04 may',
-      tipo: 1
-    },
-    {
-      id: 15,
-      grupo: 3,
-      integrantes: [
-        { id: 5 },
-        { id: 9 }
-      ],
-      materiaCod: 1,
-      tema: 'Efesios',
-      date: 'lun, 25 may',
       tipo: 1
     },
     {
