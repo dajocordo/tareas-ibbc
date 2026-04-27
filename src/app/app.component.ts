@@ -185,7 +185,7 @@ export class AppComponent implements OnInit {
       preview: 'Portafolio Doctrinal',
       materiaCod: 4,
       detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\\n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
-      date: 'mie, 06 may',
+      date: 'mie, 20 may',
       tipo: 1
     },
     {
