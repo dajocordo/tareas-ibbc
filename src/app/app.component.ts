@@ -473,7 +473,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 2,
+      id: 4,
       libro: 'Apocalipsis',
       encargadoCod: 4,
       materiaCod: 1,
@@ -481,7 +481,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 3,
+      id: 10,
       libro: 'Filemon',
       encargadoCod: 10,
       materiaCod: 1,
@@ -489,7 +489,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 4,
+      id: 6,
       libro: 'Galatas',
       encargadoCod: 6,
       materiaCod: 1,
@@ -505,7 +505,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 6,
+      id: 2,
       libro: 'Judas',
       encargadoCod: 2,
       materiaCod: 1,
@@ -521,7 +521,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 8,
+      id: 3,
       libro: 'Romanos',
       encargadoCod: 3,
       materiaCod: 1,
@@ -537,7 +537,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 10,
+      id: 8,
       libro: 'Santiago',
       encargadoCod: 8,
       materiaCod: 1,
