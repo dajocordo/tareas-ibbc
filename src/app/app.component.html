@@ -40,7 +40,7 @@
             </p-tag>
           </div>
           <div class="w-1/3">
-            <p-tag class="" [severity]="item.severity">
+            <p-tag class="tag3" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
                   ✍🏽
@@ -124,12 +124,26 @@
         <tr>
           <td>
             <p-tag class="tag2">
-              <span>🗓️ {{ item.date }}</span>
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  🗓️
+                </span>
+                <span class="text-base">
+                  {{ item.date }}
+                </span>
+              </div>
             </p-tag>
           </td>
           <td>
-            <p-tag [severity]="item.severity">
-              <span>✍🏽 {{ item.materia }}</span>
+            <p-tag class="tag3" [severity]="item.severity">
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  ✍🏽
+                </span>
+                <span class="text-base">
+                  {{ item.materia }}
+                </span>
+              </div>
             </p-tag>
           </td>
           <td>
@@ -137,10 +151,14 @@
               <div *ngFor="let user of item.integrantes" class="user-item">
 
                 <div class="user-info">
-                  <span class="flex items-center gap-2 w-full">
+                  <!-- <span class="flex items-center gap-2 w-full">
                     <p-avatar [image]="user.foto" shape="circle" size="normal" [style]="{'flex-shrink': 0}" />
                     <span class="txt-blue font-bold whitespace-nowrap">{{user.compa}}</span>
-                  </span>
+                  </span> -->
+                  <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                    <p-avatar [image]="user.foto" shape="circle" size="normal"></p-avatar>
+                    <span class="font-bold text-center md:text-left txt-blue">{{ user.compa }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -168,20 +186,39 @@
       <ng-template #body let-item>
         <tr>
           <td>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
+              <p-avatar [image]="item.foto" shape="circle" size="normal"></p-avatar>
+              <span class="font-bold text-center md:text-left txt-blue">{{ item.compa }}</span>
+            </div>
+            <!-- <div class="flex items-center gap-2">
               <p-avatar [image]="item.foto" shape="circle" size="normal"></p-avatar>
               <span class="txt-blue">{{ item.compa }}</span>
-            </div>
+            </div> -->
           </td>
           <td>{{ item.libro }}</td>
           <td>
             <p-tag class="tag2">
-              <span>🗓️ {{ item.date }}</span>
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  🗓️
+                </span>
+                <span class="text-base">
+                  {{ item.date }}
+                </span>
+              </div>
             </p-tag>
+
           </td>
           <td>
-            <p-tag [severity]="item.severity">
-              <span>✍🏽 {{ item.materia }}</span>
+            <p-tag class="tag3" [severity]="item.severity">
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  ✍🏽
+                </span>
+                <span class="text-base">
+                  {{ item.materia }}
+                </span>
+              </div>
             </p-tag>
           </td>
         </tr>
@@ -203,12 +240,26 @@
           <td>{{ item.titulo }}</td>
           <td>
             <p-tag class="tag2">
-              <span>🗓️ {{ item.date }}</span>
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  🗓️
+                </span>
+                <span class="text-base">
+                  {{ item.date }}
+                </span>
+              </div>
             </p-tag>
           </td>
           <td>
-            <p-tag [severity]="item.severity">
-              <span>✍🏽 {{ item.materia }}</span>
+            <p-tag class="tag3" [severity]="item.severity">
+              <div class="flex items-center gap-2 px-1">
+                <span class="text-base">
+                  ✍🏽
+                </span>
+                <span class="text-base">
+                  {{ item.materia }}
+                </span>
+              </div>
             </p-tag>
           </td>
         </tr>
