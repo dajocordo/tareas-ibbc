@@ -549,13 +549,13 @@ export class AppComponent implements OnInit {
   companeros: any = [
     {
       id: 1,
-      apodo: 'Castellon',
+      apodo: 'Caste',
       nombre: 'Josue Castellon',
       foto: 'fotos/caste.png'
     },
     {
       id: 2,
-      apodo: 'Rebeca',
+      apodo: 'Rebe',
       nombre: 'Rebeca Cornejo',
       foto: 'fotos/rebe.png'
     },
