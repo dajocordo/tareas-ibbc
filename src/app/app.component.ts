@@ -843,6 +843,7 @@ export class AppComponent implements OnInit {
     console.log('Pestaña seleccionada:', this.tabValue);
     console.log('Pestaña seleccionada:', this.value);
     console.log('Pestaña seleccionada:', event.value);
+    console.log('probando');
     this.tabValue = event.value.texto ?? '';
   }
 
