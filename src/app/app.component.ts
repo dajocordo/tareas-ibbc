@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { FormsModule } from '@angular/forms'; // 1. Import FormsModule
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { IftaLabelModule } from 'primeng/iftalabel';
 import { TagModule } from 'primeng/tag';
 import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
+import { MenuItem } from 'primeng/api';
+
 
 
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     CommonModule,
     MenubarModule,
     FormsModule,
@@ -26,7 +27,8 @@ import { BadgeModule } from 'primeng/badge';
     SelectModule,
     AvatarModule,
     TableModule,
-    BadgeModule
+    BadgeModule,
+    IftaLabelModule
   ],
   standalone: true,
   templateUrl: './app.component.html',
@@ -35,16 +37,18 @@ import { BadgeModule } from 'primeng/badge';
 
 export class AppComponent implements OnInit {
   title = 'tareas-ibbc';
+  tituloActual: string = 'tareas';
+  iconoActual: string = 'pi pi-list-check';
   value: string = 'tareas';
   tabValue: string = 'tareas';
-  activeTab: string = 'tareas';
+  activeTab: number = 1;
   selectedValue: number = 0;
   selectedMateria: number = 0;
   items = []
 
   materias = [
     { id: 0, severity: '', name: 'Todas' },
-    { id: 1, severity: 'success', name: 'Panorama NT' },
+    { id: 1, severity: 'success', name: 'Panorama' },
     { id: 2, severity: 'danger', name: 'Liderazgo' },
     { id: 3, severity: 'info', name: 'Homiletica I' },
     { id: 4, severity: 'secondary', name: 'Teologia I' },
@@ -56,6 +60,8 @@ export class AppComponent implements OnInit {
     { texto: 'predicas', value: 3 },
     { texto: 'otros', value: 4 },
   ]
+
+  menuItems: MenuItem[] | undefined;
 
   examenes: any[] = [
     {
@@ -70,20 +76,31 @@ export class AppComponent implements OnInit {
       titulo: 'Examen # 1',
       materiaCod: 2,
       date: 'mar, 05 may',
+      done: false,
       tipo: 1
     },
     {
       id: 3,
-      titulo: 'Examen # 2',
-      materiaCod: 1,
-      date: 'lun, 01 jun',
+      titulo: 'Examen # 1',
+      materiaCod: 4,
+      date: 'mie, 06 may',
+      done: false,
       tipo: 1
     },
     {
       id: 4,
       titulo: 'Examen # 2',
+      materiaCod: 1,
+      date: 'lun, 01 jun',
+      done: false,
+      tipo: 1
+    },
+    {
+      id: 5,
+      titulo: 'Examen # 2',
       materiaCod: 2,
       date: 'mar, 02 jun',
+      done: false,
       tipo: 1
     },
   ]
@@ -238,6 +255,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 1,
       date: 'lun, 20 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -251,6 +269,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 1,
       date: 'lun, 20 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -263,6 +282,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 2,
       date: 'mar, 21 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -275,6 +295,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 21 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -287,6 +308,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 2,
       date: 'mar, 28 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -299,6 +321,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 28 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -312,6 +335,7 @@ export class AppComponent implements OnInit {
       tema: 'Hebreos',
       severity: 'info',
       date: 'lun, 04 may',
+      done: true,
       tipo: 1
     },
     {
@@ -324,6 +348,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 05 may',
+      done: false,
       tipo: 1
     },
     {
@@ -336,6 +361,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 2,
       date: 'mar, 12 may',
+      done: false,
       tipo: 1
     },
     {
@@ -348,6 +374,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 12 may',
+      done: false,
       tipo: 1
     },
     {
@@ -360,6 +387,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 2,
       date: 'mar, 19 may',
+      done: false,
       tipo: 1
     },
     {
@@ -372,6 +400,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 19 may',
+      done: false,
       tipo: 1
     },
     {
@@ -384,6 +413,7 @@ export class AppComponent implements OnInit {
       materiaCod: 1,
       tema: 'Efesios',
       date: 'lun, 25 may',
+      done: false,
       tipo: 1
     },
     {
@@ -396,6 +426,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 2,
       date: 'mar, 26 may',
+      done: false,
       tipo: 1
     },
     {
@@ -409,6 +440,7 @@ export class AppComponent implements OnInit {
       ],
       materiaCod: 3,
       date: 'mar, 26 may',
+      done: false,
       tipo: 1
     },
     {
@@ -422,6 +454,7 @@ export class AppComponent implements OnInit {
       materiaCod: 4,
       tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -435,6 +468,7 @@ export class AppComponent implements OnInit {
       materiaCod: 4,
       tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -447,6 +481,7 @@ export class AppComponent implements OnInit {
       materiaCod: 4,
       tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -459,6 +494,7 @@ export class AppComponent implements OnInit {
       materiaCod: 4,
       tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
       date: 'sin fecha',
+      done: false,
       tipo: 1
     }
   ];
@@ -470,6 +506,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 1,
       materiaCod: 1,
       date: 'lun, 27 abr',
+      done: true,
       tipo: 1
     },
     {
@@ -478,6 +515,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 4,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -486,6 +524,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 10,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -494,6 +533,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 6,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -502,6 +542,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 5,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -510,6 +551,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 2,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -518,6 +560,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 7,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -526,6 +569,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 3,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -534,6 +578,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 9,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     },
     {
@@ -542,6 +587,7 @@ export class AppComponent implements OnInit {
       encargadoCod: 8,
       materiaCod: 1,
       date: 'sin fecha',
+      done: false,
       tipo: 1
     }
   ];
@@ -643,6 +689,33 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
+    this.onMenuClick(1);
+    this.menuItems = [
+      {
+        label: 'Tareas',
+        icon: 'pi pi-list-check',
+        value: 1,
+        command: () => this.onMenuClick(1)
+      },
+      {
+        label: 'Expos',
+        icon: 'pi pi-users',
+        value: 2,
+        command: () => this.onMenuClick(2)
+      },
+      {
+        label: 'Predicas',
+        icon: 'pi pi-microphone',
+        value: 3,
+        command: () => this.onMenuClick(3)
+      },
+      {
+        label: 'Examenes',
+        icon: 'pi pi-file',
+        value: 4,
+        command: () => this.onMenuClick(4)
+      }
+    ];
     this.activitiesFiltered = [...this.activities];
     this.exposFiltered = [...this.expos];
     this.examenFiltered = [...this.examenes];
@@ -664,6 +737,25 @@ export class AppComponent implements OnInit {
     );
     this.activitiesFiltered = this.activities.map(item => this.updateMateriaSeverity(item));
     this.examenFiltered = this.examenes.map(item => this.updateMateriaSeverity(item));
+  }
+
+  onMenuClick(value: number) {
+    const texto: any = {
+      1: 'tareas',
+      2: 'expos',
+      3: 'predicas',
+      4: 'examenes'
+    }
+    const iconos: any = {
+      1: 'pi pi-list-check',
+      2: 'pi pi-users',
+      3: 'pi pi-microphone',
+      4: 'pi pi-file'
+    };
+    this.tituloActual = texto[value] ?? '';
+    this.tabValue = this.tituloActual;
+    this.activeTab = value;
+    this.iconoActual = iconos[value] ?? '';
   }
 
   getFoto(id: number) {

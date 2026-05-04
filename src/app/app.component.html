@@ -1,24 +1,44 @@
+<div class="menu-wrapper">
+  <p-menubar [model]="menuItems" [breakpoint]="'0px'">
+    <!-- <ng-template pTemplate="item" let-item>
+      <a class="p-menuitem-link" [ngClass]="{ 'active-menu': activeTab === item.value }" (click)="item.command($event)">
+        <span [class]="item.icon"></span>
+        <span class="p-menuitem-text ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template> -->
+  </p-menubar>
+</div>
+
 <div class="container-bordered">
 
-  <h1>🔥ibbc</h1>
+  <div class="text-center">
+    <h1>
+      <i class="{{ iconoActual }}" style="font-size: 2.5rem"></i> {{ tituloActual }}
+    </h1>
+  </div>
 
-  <div class="p2 flex flex-col md:flex-row gap-4 items-start md:items-center">
 
-    <!-- SelectButton - Full width en móvil, auto en desktop -->
-    <div class="w-full md:w-auto">
+
+  <!-- SelectButton - Full width en móvil, auto en desktop -->
+  <!-- <div class="w-full md:w-auto">
       <p-selectbutton [options]="activityOptions" [(ngModel)]="tabValue" optionLabel="texto"
         (onChange)="onSelectionChange($event)">
         <ng-template #item let-item>
           <p>{{item.texto}}</p>
         </ng-template>
       </p-selectbutton>
-    </div>
+    </div> -->
+  <div class="p-2 flex flex-col md:flex-row gap-4 items-start md:items-center">
+    <div class="w-full md:w-6">
 
-    <div class="w-full md:w-56">
-
-      <p-select [options]="materias" [(ngModel)]="selectedMateria" [checkmark]="true" optionLabel="name"
+      <!-- <p-select [options]="materias" [(ngModel)]="selectedMateria" [checkmark]="true" optionLabel="name"
         optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" placeholder="Filtrar materia"
-        class="w-full md:w-56" />
+        class="w-full md:w-56" /> -->
+      <p-iftalabel styleClass="w-full ">
+        <p-select [(ngModel)]="selectedMateria" inputId="filtro-materias" [options]="materias" optionLabel="name"
+          optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" styleClass="w-6 w-full" />
+        <label for="filtro-materias">Materia</label>
+      </p-iftalabel>
     </div>
   </div>
 
@@ -63,7 +83,7 @@
     </p-accordion>
   </div>
 
-  <div *ngIf="tabValue === 'expo'">
+  <div *ngIf="tabValue === 'expos'">
     <!-- <p-accordion [activeIndex]="selectedValue" [multiple]="false">
       <p-accordion-panel *ngFor="let item of expos; let i = index" [value]="item.id">
         <p-accordion-header>
@@ -126,7 +146,7 @@
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
-                  🗓️
+                  {{ item.done ? '✅' : '🗓️' }}
                 </span>
                 <span class="text-base">
                   {{ item.date }}
@@ -200,7 +220,7 @@
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
-                  🗓️
+                  {{ item.done ? '✅' : '🗓️' }}
                 </span>
                 <span class="text-base">
                   {{ item.date }}
@@ -226,7 +246,7 @@
     </p-table>
   </div>
 
-  <div *ngIf="tabValue === 'otros'" class="w-full">
+  <div *ngIf="tabValue === 'examenes'" class="w-full">
     <p-table [value]="examenFiltered" stripedRows [tableStyle]="{ 'width': '100%' }">
       <ng-template #header>
         <tr>
@@ -242,7 +262,7 @@
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base">
-                  🗓️
+                  {{ item.done ? '✅' : '🗓️' }}
                 </span>
                 <span class="text-base">
                   {{ item.date }}
