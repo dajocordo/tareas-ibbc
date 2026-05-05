@@ -72,14 +72,6 @@ export class AppComponent implements OnInit {
     {
       id: 1,
       titulo: 'Examen # 1',
-      materiaCod: 1,
-      date: 'lun, 04 may',
-      dateFormat: '2026/05/04',
-      tipo: 1
-    },
-    {
-      id: 2,
-      titulo: 'Examen # 1',
       materiaCod: 2,
       date: 'mar, 05 may',
       dateFormat: '2026/05/05',
@@ -87,12 +79,20 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 3,
+      id: 2,
       titulo: 'Examen # 1',
       materiaCod: 4,
       date: 'mie, 06 may',
       dateFormat: '2026/05/06',
       done: false,
+      tipo: 1
+    },
+    {
+      id: 3,
+      titulo: 'Examen # 1',
+      materiaCod: 1,
+      date: 'lun, 11 may',
+      dateFormat: '2026/05/11',
       tipo: 1
     },
     {
@@ -231,7 +231,7 @@ export class AppComponent implements OnInit {
       titulo: 'Tarea # 3',
       preview: 'Portafolio Doctrinal',
       materiaCod: 4,
-      detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\\n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
+      detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\ \n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
       date: 'mie, 20 may',
       dateFormat: '2026/05/20',
       tipo: 1
@@ -562,9 +562,9 @@ export class AppComponent implements OnInit {
       libro: 'Apocalipsis',
       encargadoCod: 4,
       materiaCod: 1,
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-      done: false,
+      date: 'lun, 04 may',
+      dateFormat: '2026/05/04',
+      done: true,
       tipo: 1
     },
     {
@@ -847,13 +847,16 @@ export class AppComponent implements OnInit {
     this.tabValue = event.value.texto ?? '';
   }
 
-  onFechaChange(event: any) {
-    const filtrarExamen = this.filtrarPorFecha(this.examenes);
-    const filtrarTareas = this.filtrarPorFecha(this.tareas);
-    const filtrarExpos = this.filtrarPorFecha(this.expos);
+  filtrarTodo() {
+    const filtrarTareas = this.filtrarPorMateria(this.tareas);
+    const filtrarExpos = this.filtrarPorMateria(this.expos);
+    const filtrarExamen = this.filtrarPorMateria(this.examenes);
+    const filtrarTareas2 = this.filtrarPorFecha(filtrarTareas);
+    const filtrarExamen2 = this.filtrarPorFecha(filtrarExamen);
+    const filtrarExpos2 = this.filtrarPorFecha(filtrarExpos);
     const filtrarPredicas = this.filtrarPorFecha(this.predicas);
-    this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
-    this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
+    this.examenFiltered = filtrarExamen2.map(item => this.updateMateriaSeverity(item));
+    this.tareasFiltered = filtrarTareas2.map(item => this.updateMateriaSeverity(item));
     this.predicasFiltered = filtrarPredicas.map((item: any) =>
     ({
       ...item,
@@ -861,7 +864,7 @@ export class AppComponent implements OnInit {
       ...this.addFotoApodoUser(item)
     })
     );
-    this.exposFiltered = filtrarExpos.map((expo: any) =>
+    this.exposFiltered = filtrarExpos2.map((expo: any) =>
     ({
       ...expo,
       ...this.updateMateriaSeverity(expo),
@@ -870,19 +873,44 @@ export class AppComponent implements OnInit {
     );
   }
 
+  onFechaChange(event: any) {
+    this.filtrarTodo();
+    // const filtrarExamen = this.filtrarPorFecha(this.examenes);
+    // const filtrarTareas = this.filtrarPorFecha(this.tareas);
+    // const filtrarExpos = this.filtrarPorFecha(this.expos);
+    // const filtrarPredicas = this.filtrarPorFecha(this.predicas);
+    // this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
+    // this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
+    // this.predicasFiltered = filtrarPredicas.map((item: any) =>
+    // ({
+    //   ...item,
+    //   ...this.updateMateriaSeverity(item),
+    //   ...this.addFotoApodoUser(item)
+    // })
+    // );
+    // this.exposFiltered = filtrarExpos.map((expo: any) =>
+    // ({
+    //   ...expo,
+    //   ...this.updateMateriaSeverity(expo),
+    //   integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
+    // })
+    // );
+  }
+
   onMateriaChange(event: any) {
-    const filtrarTareas = this.filtrarPorMateria(this.tareas);
-    const filtrarExpos = this.filtrarPorMateria(this.expos);
-    const filtrarExamen = this.filtrarPorMateria(this.examenes);
-    this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
-    this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
-    this.exposFiltered = filtrarExpos.map((expo: any) =>
-    ({
-      ...expo,
-      ...this.updateMateriaSeverity(expo),
-      integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
-    })
-    );
+    this.filtrarTodo();
+    // const filtrarTareas = this.filtrarPorMateria(this.tareas);
+    // const filtrarExpos = this.filtrarPorMateria(this.expos);
+    // const filtrarExamen = this.filtrarPorMateria(this.examenes);
+    // this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
+    // this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
+    // this.exposFiltered = filtrarExpos.map((expo: any) =>
+    // ({
+    //   ...expo,
+    //   ...this.updateMateriaSeverity(expo),
+    //   integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
+    // })
+    // );
 
   }
 
@@ -903,7 +931,7 @@ export class AppComponent implements OnInit {
     };
   }
 
-    private filtrarPorFecha(lista: any[]) {
+  private filtrarPorFecha(lista: any[]) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return this.selectedFecha === 0

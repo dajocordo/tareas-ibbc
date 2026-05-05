@@ -3,7 +3,6 @@
 @import "primeicons/primeicons.css";
 
 
-
 .container-bordered {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -37,6 +36,10 @@ h1 {
   letter-spacing: 0.02px;
 }
 
+.txt-titulo {
+  color: rgb(35, 88, 141);
+}
+
 .txt-blue {
   color: rgb(35, 88, 141);
   font-weight: 600;
@@ -47,6 +50,10 @@ h1 {
   color: blue !important;
   font-weight: 600;
   letter-spacing: 0.07px;
+}
+
+h1 {
+  color: rgb(35, 88, 141);
 }
 
 .text-center {
@@ -72,26 +79,6 @@ h1 {
 }
 
 
-/*    ACORDION    */
-.striped-accordion .p-accordion-panel:nth-child(odd) {
-  background: linear-gradient(to bottom, #ffffff, #ffffff);
-}
-
-.striped-accordion .p-accordion-panel:nth-child(even) {
-  background: linear-gradient(to bottom, #f8f9fa, #f8f9fa);
-}
-
-.striped-accordion .p-accordion-panel:nth-child(odd) .p-accordion-header {
-  background-color: #ffffff !important;
-}
-
-.striped-accordion .p-accordion-panel:nth-child(even) .p-accordion-header {
-  background-color: #f8f9fa !important;
-}
-
-
-
-
 
 
 /*-----------------| MENUBAR |-----------------*/
@@ -100,11 +87,6 @@ h1 {
   display: flex;
   justify-content: center;
 }
-
-// .p-menubar .active-menu .p-menuitem-text {
-//   font-weight: 700 !important;
-//   color: red !important;
-// }
 
 
 /*-----------------| IBBC |-----------------*/

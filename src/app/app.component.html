@@ -12,8 +12,8 @@
 <div class="container-bordered">
 
   <div class="text-center">
-    <h1>
-      <i class="{{ iconoActual }}" style="font-size: 2.5rem"></i> {{ tituloActual }}
+    <h1 class="txt-titulo">
+      <i class="{{ iconoActual }} txt-titulo" style="font-size: 2.5rem"></i> {{ tituloActual }}
     </h1>
   </div>
 
@@ -59,7 +59,7 @@
                 <span class="text-base">
                   🗓️
                 </span>
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   {{ item.date }}
                 </span>
               </div>
@@ -104,11 +104,11 @@
           <td>
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   <i [class]="item.done ? 'pi pi-check' : 'pi pi-calendar'"></i>
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   {{ item.date }}
                 </span>
               </div>
@@ -179,7 +179,7 @@
                   <i [class]="item.done ? 'pi pi-check' : 'pi pi-calendar'"></i>
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   {{ item.date }}
                 </span>
               </div>
@@ -207,25 +207,21 @@
     <p-table [value]="examenFiltered" stripedRows [tableStyle]="{ 'width': '100%' }">
       <ng-template #header>
         <tr>
-          <th [style]="{'width':'25%'}">Nombre</th>
           <th [style]="{'width':'30%'}">Fecha</th>
-          <th [style]="{'width':'45%'}">Materia</th>
+          <th [style]="{'width':'40%'}">Materia</th>
+          <th [style]="{'width':'30%'}">Nombre</th>
         </tr>
       </ng-template>
       <ng-template #body let-item>
         <tr>
           <td>
-            <i class="pi pi-file"></i>
-            {{ item.titulo }}
-          </td>
-          <td>
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   <i [class]="item.done ? 'pi pi-check' : 'pi pi-calendar'"></i>
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
-                <span class="text-base">
+                <span class="text-base txt-blue">
                   {{ item.date }}
                 </span>
               </div>
@@ -242,6 +238,9 @@
                 </span>
               </div>
             </p-tag>
+          </td>
+          <td>
+            {{ item.titulo }}
           </td>
         </tr>
       </ng-template>
