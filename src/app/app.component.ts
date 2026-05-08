@@ -282,6 +282,16 @@ export class AppComponent implements OnInit {
       dateFormat: '2026/06/02',
       tipo: 1
     },
+    {
+      id: 15,
+      titulo: 'Tarea # 4',
+      preview: 'DRAMA (lider)',
+      materiaCod: 2,
+      detalles: '<span class="txt-titulo">Representación de Personaje Bíblico (lider)</span><br><img src="/the-chosen-ilustration.png" alt="Drama"><br>El estudiante elegirá un personaje bíblico que haya sido un líder destacado en la historia de la redención (por ejemplo, Moisés, David, Nehemías, Pablo, etc.) y preparará una representación dramática de su vida y liderazgo. <br><br> La representación debe incluir:<br> - Contexto histórico y cultural del personaje.<br> - Descripción de su llamado al liderazgo.<br> - Principales desafíos y logros en su liderazgo.<br> - Aplicación práctica de sus principios de liderazgo para los líderes cristianos hoy.<br><br> La presentación puede ser en formato de monólogo, diálogo o escena teatral breve, con una duración de 5 a 10 minutos. Se valorará la creatividad, fidelidad bíblica y la capacidad de comunicar principios de liderazgo a través del drama.',
+      date: 'mar, 02 jun',
+      dateFormat: '2026/06/02',
+      tipo: 1
+    },
   ];
 
   expos: any[] = [

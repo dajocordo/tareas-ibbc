@@ -83,7 +83,8 @@
           </div>
         </p-accordion-header>
         <p-accordion-content>
-          <p class="m-0" style="white-space: pre-wrap;">{{ item.detalles }}</p>
+          <!-- <p class="m-0" style="white-space: pre-wrap;">{{ item.detalles }}</p> -->
+          <div [innerHTML]="item.detalles"></div>
         </p-accordion-content>
       </p-accordion-panel>
     </p-accordion>
