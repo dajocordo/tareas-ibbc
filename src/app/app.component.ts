@@ -203,9 +203,9 @@ export class AppComponent implements OnInit {
     {
       id: 7,
       titulo: 'Tarea # 2',
-      preview: 'Pendiente indicaciones',
+      preview: 'Tipos de Oratoria',
       materiaCod: 3,
-      detalles: 'Descargue recurso y elabore trabajo segun indicaciones',
+      detalles: 'Lea o descargue recurso, luego  elabore trabajo segun indicaciones',
       // date: 'mar, 28 abr',
       date: 'sin fecha',
       dateFormat: '2026/06/01',
