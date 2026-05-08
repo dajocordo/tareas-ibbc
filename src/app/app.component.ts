@@ -585,7 +585,7 @@ export class AppComponent implements OnInit {
       libro: 'Filemon',
       encargadoCod: 10,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 11 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -595,7 +595,7 @@ export class AppComponent implements OnInit {
       libro: 'Galatas',
       encargadoCod: 5,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 11 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -605,7 +605,7 @@ export class AppComponent implements OnInit {
       libro: '2 Corintios',
       encargadoCod: 6,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 18 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -615,7 +615,7 @@ export class AppComponent implements OnInit {
       libro: 'Judas',
       encargadoCod: 2,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 18 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -625,7 +625,7 @@ export class AppComponent implements OnInit {
       libro: '1 Timoteo',
       encargadoCod: 7,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 25 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -635,7 +635,7 @@ export class AppComponent implements OnInit {
       libro: 'Romanos',
       encargadoCod: 3,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 25 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -645,7 +645,7 @@ export class AppComponent implements OnInit {
       libro: '1 Pedro',
       encargadoCod: 9,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 01 jun',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -655,7 +655,7 @@ export class AppComponent implements OnInit {
       libro: 'Santiago',
       encargadoCod: 8,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 01 jun',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
