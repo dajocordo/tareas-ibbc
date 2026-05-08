@@ -75,20 +75,29 @@ export class AppComponent implements OnInit {
       materiaCod: 2,
       date: 'mar, 05 may',
       dateFormat: '2026/05/05',
-      done: false,
+      done: true,
       tipo: 1
     },
     {
       id: 2,
       titulo: 'Examen # 1',
-      materiaCod: 4,
-      date: 'mie, 06 may',
-      dateFormat: '2026/05/06',
-      done: false,
+      materiaCod: 3,
+      date: 'mar, 05 may',
+      dateFormat: '2026/05/05',
+      done: true,
       tipo: 1
     },
     {
       id: 3,
+      titulo: 'Examen # 1',
+      materiaCod: 4,
+      date: 'mie, 06 may',
+      dateFormat: '2026/05/06',
+      done: true,
+      tipo: 1
+    },
+    {
+      id: 4,
       titulo: 'Examen # 1',
       materiaCod: 1,
       date: 'lun, 11 may',
@@ -96,7 +105,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 4,
+      id: 5,
       titulo: 'Examen # 2',
       materiaCod: 1,
       date: 'lun, 01 jun',
@@ -105,7 +114,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 5,
+      id: 6,
       titulo: 'Examen # 2',
       materiaCod: 2,
       date: 'mar, 02 jun',
@@ -182,28 +191,31 @@ export class AppComponent implements OnInit {
       preview: 'Los Dones y el fruto',
       materiaCod: 2,
       detalles: 'Basados en 1a. Carta de Corintios Cap. 12 diseñar una infografía acerca de los dones y el fruto del Espíritu, identificando la trascendencia en su vida espiritual ¿Son necesarios? ¿Por qué? Relate una manifestación personal de estos en su vida.',
-      date: 'mar, 28 abr',
-      dateFormat: '2026/04/28',
+      // date: 'mar, 28 abr',
+      date: 'sin fecha',
+      dateFormat: '2026/06/01',
       tipo: 1
     },
     {
       id: 7,
       titulo: 'Tarea # 2',
-      preview: 'Poca informacion',
+      preview: 'Pendiente indicaciones',
       materiaCod: 3,
       detalles: 'Descargue recurso y elabore trabajo segun indicaciones',
-      date: 'mar, 28 abr',
-      dateFormat: '2026/04/28',
+      // date: 'mar, 28 abr',
+      date: 'sin fecha',
+      dateFormat: '2026/06/01',
       tipo: 1
     },
     {
       id: 8,
       titulo: 'Tarea # 3',
-      preview: 'Poca informacion',
+      preview: 'Pendiente indicaciones',
       materiaCod: 3,
       detalles: 'Descargue recurso y elabore trabajo segun indicaciones',
-      date: 'mar, 05  may',
-      dateFormat: '2026/05/05',
+      // date: 'mar, 05  may',
+      date: 'sin fecha',
+      dateFormat: '2026/06/01',
       tipo: 1
     },
     {
@@ -371,26 +383,26 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 7,
-      grupo: 5,
-      tema: 'Nueve claves para preparar mensajes biblicos, primera parte (E,F,G,H,I)',
-      integrantes: [
-        { id: 1 },
-        { id: 4 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 05 may',
-      dateFormat: '2026/05/05',
-      done: false,
-      tipo: 1
-    },
-    {
       id: 8,
       grupo: 3,
-      tema: 'Leyes de la 16 a la 23',
+      tema: 'Leyes de la 16 a la 21',
       integrantes: [
         { id: 7 },
         { id: 6 }
+      ],
+      materiaCod: 2,
+      date: 'mar, 06 may',
+      dateFormat: '2026/05/06',
+      done: true,
+      tipo: 1
+    },
+    {
+      id: 14,
+      grupo: 4,
+      tema: 'El Corazon y el caracter del lider',
+      integrantes: [
+        { id: 3 },
+        { id: 10 }
       ],
       materiaCod: 2,
       date: 'mar, 12 may',
@@ -413,21 +425,79 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
+      id: 7,
+      grupo: 5,
+      tema: 'Nueve claves para preparar mensajes biblicos, segunda parte (E,F,G,H,I)',
+      integrantes: [
+        { id: 1 },
+        { id: 4 }
+      ],
+      materiaCod: 3,
+      date: 'mar, 12 may',
+      dateFormat: '2026/05/12',
+      done: false,
+      tipo: 1
+    },
+    {
       id: 10,
-      grupo: 4,
-      tema: 'El Corazon y el caracter del lider',
+      grupo: 1,
       integrantes: [
         { id: 3 },
-        { id: 10 }
+        { id: 5 },
+        { id: 1 }
       ],
-      materiaCod: 2,
-      date: 'mar, 19 may',
-      dateFormat: '2026/05/19',
+      materiaCod: 4,
+      tema: `<b>Espiritu, Conocible, Eterno</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).`,
+      date: 'mie, 13 may',
+      dateFormat: '2026/05/13',
       done: false,
       tipo: 1
     },
     {
       id: 11,
+      grupo: 2,
+      integrantes: [
+        { id: 4 },
+        { id: 2 },
+        { id: 6 }
+      ],
+      materiaCod: 4,
+      tema: '<b>Onmipotente, Onmipresente, Onmisciente y Sabio</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
+      date: 'mie, 13 may',
+      dateFormat: '2026/05/13',
+      done: false,
+      tipo: 1
+    },
+    {
+      id: 12,
+      grupo: 3,
+      integrantes: [
+        { id: 9 },
+        { id: 8 }
+      ],
+      materiaCod: 4,
+      tema: '<b>Fiel, Veraz y Bueno</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
+      date: 'mie, 13 may',
+      dateFormat: '2026/05/13',
+      done: false,
+      tipo: 1
+    },
+    {
+      id: 13,
+      grupo: 4,
+      integrantes: [
+        { id: 7 },
+        { id: 10 }
+      ],
+      materiaCod: 4,
+      tema: '<b>Paciente, Amoroso y Lleno de Gracia</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
+      date: 'mie, 13 may',
+      dateFormat: '2026/05/13',
+      done: false,
+      tipo: 1
+    },
+    {
+      id: 15,
       grupo: 3,
       tema: 'Pauta para los devocionales',
       integrantes: [
@@ -441,7 +511,21 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 15,
+      id: 17,
+      grupo: 5,
+      tema: 'Desata tu FORMA para la vida',
+      integrantes: [
+        { id: 9 },
+        { id: 8 }
+      ],
+      materiaCod: 2,
+      date: 'mar, 19 may',
+      dateFormat: '2026/05/19',
+      done: false,
+      tipo: 1
+    },
+    {
+      id: 16,
       grupo: 3,
       integrantes: [
         { id: 5 },
@@ -455,21 +539,7 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 12,
-      grupo: 5,
-      tema: 'Desata tu FORMA para la vida',
-      integrantes: [
-        { id: 9 },
-        { id: 8 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 26 may',
-      dateFormat: '2026/05/26',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 13,
+      id: 18,
       grupo: 6,
       tema: 'Mandamientos 1 al 5 de expresion oral',
       integrantes: [
@@ -480,67 +550,6 @@ export class AppComponent implements OnInit {
       materiaCod: 3,
       date: 'mar, 26 may',
       dateFormat: '2026/05/26',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 16,
-      grupo: 1,
-      integrantes: [
-        { id: 3 },
-        { id: 5 },
-        { id: 1 }
-      ],
-      materiaCod: 4,
-      tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 17,
-      grupo: 2,
-      integrantes: [
-        { id: 4 },
-        { id: 2 },
-        { id: 6 }
-      ],
-      materiaCod: 4,
-      tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 18,
-      grupo: 3,
-      integrantes: [
-        { id: 9 },
-        { id: 8 }
-      ],
-      materiaCod: 4,
-      tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 19,
-      grupo: 4,
-      integrantes: [
-        { id: 7 },
-        { id: 10 }
-      ],
-      materiaCod: 4,
-      tema: 'Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-
       done: false,
       tipo: 1
     }
@@ -578,9 +587,9 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 6,
+      id: 5,
       libro: 'Galatas',
-      encargadoCod: 6,
+      encargadoCod: 5,
       materiaCod: 1,
       date: 'sin fecha',
       dateFormat: '2026/06/01',
@@ -588,9 +597,9 @@ export class AppComponent implements OnInit {
       tipo: 1
     },
     {
-      id: 5,
+      id: 6,
       libro: '2 Corintios',
-      encargadoCod: 5,
+      encargadoCod: 6,
       materiaCod: 1,
       date: 'sin fecha',
       dateFormat: '2026/06/01',
@@ -875,43 +884,10 @@ export class AppComponent implements OnInit {
 
   onFechaChange(event: any) {
     this.filtrarTodo();
-    // const filtrarExamen = this.filtrarPorFecha(this.examenes);
-    // const filtrarTareas = this.filtrarPorFecha(this.tareas);
-    // const filtrarExpos = this.filtrarPorFecha(this.expos);
-    // const filtrarPredicas = this.filtrarPorFecha(this.predicas);
-    // this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
-    // this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
-    // this.predicasFiltered = filtrarPredicas.map((item: any) =>
-    // ({
-    //   ...item,
-    //   ...this.updateMateriaSeverity(item),
-    //   ...this.addFotoApodoUser(item)
-    // })
-    // );
-    // this.exposFiltered = filtrarExpos.map((expo: any) =>
-    // ({
-    //   ...expo,
-    //   ...this.updateMateriaSeverity(expo),
-    //   integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
-    // })
-    // );
   }
 
   onMateriaChange(event: any) {
     this.filtrarTodo();
-    // const filtrarTareas = this.filtrarPorMateria(this.tareas);
-    // const filtrarExpos = this.filtrarPorMateria(this.expos);
-    // const filtrarExamen = this.filtrarPorMateria(this.examenes);
-    // this.tareasFiltered = filtrarTareas.map(item => this.updateMateriaSeverity(item));
-    // this.examenFiltered = filtrarExamen.map(item => this.updateMateriaSeverity(item));
-    // this.exposFiltered = filtrarExpos.map((expo: any) =>
-    // ({
-    //   ...expo,
-    //   ...this.updateMateriaSeverity(expo),
-    //   integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
-    // })
-    // );
-
   }
 
 
