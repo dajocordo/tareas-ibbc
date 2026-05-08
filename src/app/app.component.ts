@@ -40,10 +40,14 @@ export class AppComponent implements OnInit {
   value: string = 'tareas';
   tabValue: string = 'tareas';
   activeTab: number = 1;
-  selectedValue: number = 0;
+  selectedTarea: number = 0;
   selectedMateria: number = 0;
-  selectedFecha: number = 0;
+  selectedFecha: number = 1;
   items = []
+
+  /* ===== MAPAS PARA BÚSQUEDAS RÁPIDAS O(1) ===== */
+  companeroMap: Map<number, any> = new Map();  /* Mapa ID → Compañero (foto, apodo) */
+  materiaMap: Map<number, any> = new Map();    /* Mapa ID → Materia (name, severity) */
 
   materias = [
     { id: 0, severity: '', name: 'Todas' },
@@ -274,6 +278,16 @@ export class AppComponent implements OnInit {
       preview: 'Sondeos FORMA',
       materiaCod: 2,
       detalles: 'Complementar los sondeos que se presentan en clase y los aférrate del Libro F.O.R.M.A. del capítulo 1 al 6.',
+      date: 'mar, 02 jun',
+      dateFormat: '2026/06/02',
+      tipo: 1
+    },
+    {
+      id: 15,
+      titulo: 'Tarea # 4',
+      preview: 'DRAMA (lider)',
+      materiaCod: 2,
+      detalles: '<span class="txt-titulo">Representación de Personaje Bíblico (lider)</span><br><img src="the-chosen-ilustration.png" alt="Drama"><br>El estudiante elegirá un personaje bíblico que haya sido un líder destacado en la historia de la redención (por ejemplo, Moisés, David, Nehemías, Pablo, etc.) y preparará una representación dramática de su vida y liderazgo. <br><br> La representación debe incluir:<br> - Contexto histórico y cultural del personaje.<br> - Descripción de su llamado al liderazgo.<br> - Principales desafíos y logros en su liderazgo.<br> - Aplicación práctica de sus principios de liderazgo para los líderes cristianos hoy.<br><br> La presentación puede ser en formato de monólogo, diálogo o escena teatral breve, con una duración de 5 a 10 minutos. Se valorará la creatividad, fidelidad bíblica y la capacidad de comunicar principios de liderazgo a través del drama.',
       date: 'mar, 02 jun',
       dateFormat: '2026/06/02',
       tipo: 1
@@ -581,7 +595,7 @@ export class AppComponent implements OnInit {
       libro: 'Filemon',
       encargadoCod: 10,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 11 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -591,7 +605,7 @@ export class AppComponent implements OnInit {
       libro: 'Galatas',
       encargadoCod: 5,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 11 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -601,7 +615,7 @@ export class AppComponent implements OnInit {
       libro: '2 Corintios',
       encargadoCod: 6,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 18 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -611,7 +625,7 @@ export class AppComponent implements OnInit {
       libro: 'Judas',
       encargadoCod: 2,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 18 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -621,7 +635,7 @@ export class AppComponent implements OnInit {
       libro: '1 Timoteo',
       encargadoCod: 7,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 25 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -631,7 +645,7 @@ export class AppComponent implements OnInit {
       libro: 'Romanos',
       encargadoCod: 3,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 25 may',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -641,7 +655,7 @@ export class AppComponent implements OnInit {
       libro: '1 Pedro',
       encargadoCod: 9,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 01 jun',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -651,7 +665,7 @@ export class AppComponent implements OnInit {
       libro: 'Santiago',
       encargadoCod: 8,
       materiaCod: 1,
-      date: 'sin fecha',
+      date: 'lun, 01 jun',
       dateFormat: '2026/06/01',
       done: false,
       tipo: 1
@@ -754,8 +768,14 @@ export class AppComponent implements OnInit {
   // ];
   //}
 
+  private buildLookups() {
+    this.companeroMap = new Map(this.companeros.map((compa: any) => [compa.id, compa]));
+    this.materiaMap = new Map(this.materias.map((materia: any) => [materia.id, materia]));
+  }
+
 
   ngOnInit() {
+    this.buildLookups();
     this.onMenuClick(1);
     this.menuItems = [
       {
@@ -783,28 +803,8 @@ export class AppComponent implements OnInit {
         command: () => this.onMenuClick(4)
       }
     ];
-    this.tareasFiltered = [...this.tareas];
-    this.exposFiltered = [...this.expos];
-    this.examenFiltered = [...this.examenes];
-    this.predicasFiltered = [...this.predicas];
     this.selectedMateria = this.materias[0].id;
-    this.predicasFiltered = this.predicasFiltered.map(item => ({
-      ...item,
-      ...this.updateMateriaSeverity(item),
-      ...this.addFotoApodoUser(item)
-    }));
-    this.exposFiltered = this.expos.map((expo: any) =>
-    ({
-      ...expo,
-      ...this.updateMateriaSeverity(expo),
-      integrantes: expo.integrantes.map((item: any) => ({
-        ...item,
-        ...this.addFotoApodoUser(item)
-      }))
-    })
-    );
-    this.tareasFiltered = this.tareas.map(item => this.updateMateriaSeverity(item));
-    this.examenFiltered = this.examenes.map(item => this.updateMateriaSeverity(item));
+    this.filtrarTodo();
   }
 
   onMenuClick(value: number) {
@@ -827,19 +827,19 @@ export class AppComponent implements OnInit {
   }
 
   getFoto(id: number) {
-    return this.companeros.find((compa: any) => compa.id === id)?.foto ?? '';
+    return this.companeroMap.get(id)?.foto ?? '';
   }
 
   getApodo(id: number) {
-    return this.companeros.find((compa: any) => compa.id === id)?.apodo ?? '';
+    return this.companeroMap.get(id)?.apodo ?? '';
   }
 
   getMateriaName(id: number) {
-    return this.materias.find((materia: any) => materia.id === id)?.name ?? '';
+    return this.materiaMap.get(id)?.name ?? '';
   }
 
   getMateriaColor(id: number) {
-    return this.materias.find((materia: any) => materia.id === id)?.severity ?? '';
+    return this.materiaMap.get(id)?.severity ?? '';
   }
 
   getAccordionStyle(index: number) {
