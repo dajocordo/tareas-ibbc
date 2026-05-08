@@ -1,185 +1,753 @@
-/* You can add global styles to this file, and also import other style files */
+/* =====================================================
+   GLOBAL STYLES - TAREAS IBBC
+   Diseño moderno, responsive y profesional
+   ===================================================== */
 
+@use 'sass:color';  /* Acceder al módulo de color para funciones como color.adjust() */
 @import "primeicons/primeicons.css";
 
+/* ===== VARIABLES SCSS Y CSS =====
+   Centralizamos todos los valores reutilizables para fácil mantenimiento
+   ================================== */
 
-.container-bordered {
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
+/* --- PALETA DE COLORES PROFESIONAL --- */
+$color-primary: #2563eb;           /* Azul profesional para acciones principales */
+$color-primary-dark: #1e40af;      /* Azul oscuro para hover/active */
+$color-primary-light: #dbeafe;     /* Azul claro para fondos */
 
-  @media (max-width: 768px) {
-    max-width: 100%;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+$color-secondary: #8b5cf6;         /* Púrpura para énfasis */
+$color-secondary-light: #f3e8ff;   /* Púrpura claro para fondos */
+
+$color-success: #10b981;           /* Verde para acciones exitosas */
+$color-success-light: #d1fae5;     /* Verde claro */
+
+$color-warning: #f59e0b;           /* Ámbar para alertas */
+$color-warning-light: #fef3c7;     /* Ámbar claro */
+
+$color-danger: #ef4444;            /* Rojo para errores/peligro */
+$color-danger-light: #fee2e2;      /* Rojo claro */
+
+$color-info: #06b6d4;              /* Cian para información */
+$color-info-light: #cffafe;        /* Cian claro */
+
+/* --- ESCALA DE GRISES NEUTRA --- */
+$color-text-dark: #1f2937;         /* Texto principal: casi negro */
+$color-text-medium: #4b5563;       /* Texto secundario: gris oscuro */
+$color-text-light: #9ca3af;        /* Texto auxiliar: gris medio */
+
+$color-bg-white: #ffffff;          /* Fondo blanco puro */
+$color-bg-light: #f9fafb;          /* Fondo muy claro: gris 50 */
+$color-bg-lighter: #f3f4f6;        /* Fondo claro: gris 100 */
+
+$color-border: #e5e7eb;            /* Bordes estándar: gris 200 */
+$color-border-light: #f3f4f6;      /* Bordes sutiles: gris 100 */
+
+/* --- TIPOGRAFÍA --- */
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-headings: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Fuente moderna para títulos */
+
+$font-weight-light: 300;           /* Para texto auxiliar */
+$font-weight-regular: 400;         /* Para texto de cuerpo */
+$font-weight-medium: 500;          /* Para énfasis medio */
+$font-weight-semibold: 600;        /* Para títulos */
+$font-weight-bold: 700;            /* Para énfasis fuerte */
+
+/* --- ESCALA DE TIPOGRAFÍA (RESPONSIVA) --- */
+/* Desktop (1920px+) */
+$font-size-xs: 12px;               /* Etiquetas pequeñas, hints */
+$font-size-sm: 14px;               /* Texto secundario */
+$font-size-base: 16px;             /* Tamaño base para párrafos */
+$font-size-lg: 18px;               /* Subtítulos */
+$font-size-xl: 20px;               /* Títulos pequeños */
+$font-size-2xl: 24px;              /* Títulos medianos */
+$font-size-3xl: 32px;              /* Títulos grandes */
+$font-size-4xl: 40px;              /* Títulos muy grandes */
+
+/* --- ESPACIADO BASE (8px = 1rem) --- */
+$space-xs: 4px;                    /* 0.25rem - espaciado mínimo */
+$space-sm: 8px;                    /* 0.5rem - espaciado pequeño */
+$space-md: 12px;                   /* 0.75rem - espaciado medio */
+$space-lg: 16px;                   /* 1rem - espaciado estándar */
+$space-xl: 24px;                   /* 1.5rem - espaciado grande */
+$space-2xl: 32px;                  /* 2rem - espaciado muy grande */
+$space-3xl: 48px;                  /* 3rem - espaciado extra */
+$space-4xl: 64px;                  /* 4rem - espaciado máximo */
+
+/* --- BORDES Y ESQUINAS --- */
+$border-radius-sm: 4px;            /* Bordes muy sutiles (inputs pequeños) */
+$border-radius-md: 8px;            /* Bordes estándar (cards, inputs) */
+$border-radius-lg: 12px;           /* Bordes redondeados (componentes grandes) */
+$border-radius-xl: 16px;           /* Bordes muy redondeados */
+$border-radius-full: 9999px;       /* Completamente redondeado (pills) */
+
+$border-width-thin: 1px;           /* Borde muy sutil */
+$border-width-normal: 2px;         /* Borde estándar */
+
+/* --- SOMBRAS SUTILES (sin exceso, profesional) --- */
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);                           /* Sombra mínima */
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);                           /* Sombra media */
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);                          /* Sombra grande */
+$shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);                         /* Sombra muy grande */
+
+$shadow-focus: 0 0 0 3px $color-primary-light;                       /* Sombra para focus */
+
+/* --- TRANSICIONES --- */
+$transition-fast: 150ms ease-in-out;                                 /* Para interacciones rápidas */
+$transition-normal: 250ms ease-in-out;                               /* Transición estándar */
+$transition-slow: 350ms ease-in-out;                                 /* Para animaciones más lentas */
+
+/* --- BREAKPOINTS RESPONSIVOS --- */
+$breakpoint-sm: 640px;             /* Teléfonos grandes */
+$breakpoint-md: 768px;             /* Tablets */
+$breakpoint-lg: 1024px;            /* Desktops pequeños */
+$breakpoint-xl: 1280px;            /* Desktops medianos */
+$breakpoint-2xl: 1536px;           /* Desktops grandes (2K+) */
+$breakpoint-3xl: 1920px;           /* Desktops 4K */
+
+/* ===== RESET Y ESTILOS BASE =====
+   Establecemos una base sólida para todo el proyecto
+   ============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;          /* Incluir padding y border en el cálculo del tamaño */
+}
+
+html {
+  scroll-behavior: smooth;          /* Scroll suave */
+  -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;       /* Base 16px: legible en móvil */
+  font-weight: $font-weight-regular;
+  color: $color-text-dark;
+  background-color: $color-bg-white;
+  line-height: 1.5;                 /* Altura de línea cómoda para lectura */
+  letter-spacing: 0.3px;            /* Espaciado de caracteres sutil */
+
+  /* Desktop (1920px+) */
+  @media (min-width: $breakpoint-3xl) {
+    font-size: 17px;                /* Ligeramente más grande en 4K */
+  }
+
+  /* Tablets (768px - 1023px) */
+  @media (max-width: 1023px) {
+    font-size: $font-size-base;     /* 16px en tablets */
+  }
+
+  /* Teléfonos (máximo 639px) */
+  @media (max-width: 639px) {
+    font-size: 15px;                /* 15px en móviles: legible pero compacto */
   }
 }
 
+/* ===== TIPOGRAFÍA JERÁRQUICA =====
+   Establecer una jerarquía clara de tamaños
+   ==================================== */
+
+/* Headings: Usar la fuente moderna para impacto visual */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-headings;
+  font-weight: $font-weight-semibold;
+  color: $color-text-dark;
+  margin: $space-2xl 0 $space-lg 0; /* Espaciado consistente: 32px arriba, 16px abajo */
+  line-height: 1.2;                 /* Línea más compacta para títulos */
+  letter-spacing: -0.5px;           /* Ligeramente comprimido para más impacto */
+}
+
 h1 {
-  margin-bottom: 24px; // Espacio debajo del h1
+  font-size: $font-size-4xl;        /* 40px - Título principal */
+  font-weight: $font-weight-bold;
+  color: $color-primary;            /* Azul profesional */
+  margin-bottom: $space-2xl;        /* 32px de espacio */
+
+  @media (max-width: 1023px) {
+    font-size: $font-size-3xl;      /* 32px en tablets */
+  }
+
+  @media (max-width: 639px) {
+    font-size: $font-size-2xl;      /* 24px en móviles */
+  }
 }
 
-.p2 {
-  margin-bottom: 32px; // Espacio debajo del div
+h2 {
+  font-size: $font-size-3xl;        /* 32px */
+  color: $color-text-dark;
+
+  @media (max-width: 1023px) {
+    font-size: $font-size-2xl;      /* 24px en tablets */
+  }
+
+  @media (max-width: 639px) {
+    font-size: $font-size-xl;       /* 20px en móviles */
+  }
 }
 
-.tag2 {
-  border: 2px solid var(--border-color) !important;
-  background: transparent !important;
-  color: var(--text-color) !important;
+h3 {
+  font-size: $font-size-2xl;        /* 24px */
+  color: $color-text-dark;
+
+  @media (max-width: 1023px) {
+    font-size: $font-size-xl;       /* 20px en tablets */
+  }
+
+  @media (max-width: 639px) {
+    font-size: $font-size-lg;       /* 18px en móviles */
+  }
 }
 
-.tag3 {
-  letter-spacing: 0.02px;
+h4 {
+  font-size: $font-size-xl;         /* 20px */
+  font-weight: $font-weight-medium;
+
+  @media (max-width: 639px) {
+    font-size: $font-size-lg;       /* 18px en móviles */
+  }
 }
+
+h5 {
+  font-size: $font-size-lg;         /* 18px */
+  font-weight: $font-weight-medium;
+}
+
+h6 {
+  font-size: $font-size-base;       /* 16px */
+  font-weight: $font-weight-medium;
+}
+
+/* Párrafos y texto de cuerpo */
+p {
+  margin: 0 0 $space-lg 0;          /* 16px de espacio debajo */
+  color: $color-text-medium;        /* Gris oscuro para mejor contraste */
+  line-height: 1.6;                 /* Altura de línea generosa para lectura */
+}
+
+/* Texto pequeño y etiquetas */
+small, .text-sm {
+  font-size: $font-size-sm;         /* 14px */
+  color: $color-text-light;         /* Gris más claro */
+}
+
+/* Texto muy pequeño */
+.text-xs {
+  font-size: $font-size-xs;         /* 12px */
+  color: $color-text-light;
+}
+
+/* Texto grande */
+.text-lg {
+  font-size: $font-size-lg;         /* 18px */
+  line-height: 1.5;
+}
+
+/* ===== UTILIDADES GLOBALES =====
+   Clases reutilizables para alineación, espaciado, etc.
+   ============================== */
+
+/* Alineación */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* Visibilidad */
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+/* Utilidades de espaciado: margen y padding */
+.mt-sm { margin-top: $space-sm; }
+.mt-md { margin-top: $space-md; }
+.mt-lg { margin-top: $space-lg; }
+.mt-xl { margin-top: $space-xl; }
+
+.mb-sm { margin-bottom: $space-sm; }
+.mb-md { margin-bottom: $space-md; }
+.mb-lg { margin-bottom: $space-lg; }
+.mb-xl { margin-bottom: $space-xl; }
+
+.ml-2 { margin-left: $space-md; }
+.ml-4 { margin-left: $space-lg; }
+
+.pt-lg { padding-top: $space-lg; }
+.px-lg { padding-left: $space-lg; padding-right: $space-lg; }
+.px-xl { padding-left: $space-xl; padding-right: $space-xl; }
+
+/* ===== CONTENEDORES PRINCIPALES =====
+   Estilos para contenedores con bordes, padding y máximo ancho
+   ==================================== */
+
+.container-bordered {
+  border: $border-width-thin solid $color-border;     /* Borde sutil gris */
+  border-radius: $border-radius-md;                    /* Esquinas redondeadas 8px */
+  padding: $space-2xl;                                 /* Padding interno: 32px */
+  background-color: $color-bg-white;
+  box-shadow: $shadow-sm;                              /* Sombra mínima para elevación */
+  max-width: 900px;
+  margin: 0 auto;
+  transition: all $transition-normal;                  /* Transición suave */
+
+  /* Tablets: reducir padding y esquinas */
+  @media (max-width: 1023px) {
+    padding: $space-xl;                                /* 24px */
+    border-radius: $border-radius-md;
+  }
+
+  /* Móviles: eliminar bordes laterales para full-width */
+  @media (max-width: 767px) {
+    max-width: 100%;
+    border-radius: 0;                                  /* Sin esquinas redondeadas */
+    border-left: none;                                 /* Eliminar borde izquierdo */
+    border-right: none;                                /* Eliminar borde derecho */
+    border-top: $border-width-thin solid $color-border;
+    border-bottom: $border-width-thin solid $color-border;
+    padding: $space-lg;                                /* 16px */
+  }
+
+  /* Mobile pequeño */
+  @media (max-width: 639px) {
+    padding: $space-md;                                /* 12px */
+  }
+}
+
+.container-full-width {
+  width: 100%;
+  padding: $space-2xl;
+
+  @media (max-width: 767px) {
+    padding: $space-lg;
+  }
+}
+
+/* ===== COMPONENTES DE TEXTO REUTILIZABLES =====
+   Clases para estilos de texto específicos
+   ========================================== */
 
 .txt-titulo {
-  color: rgb(35, 88, 141);
+  color: $color-primary;             /* Azul profesional */
+  font-weight: $font-weight-bold;
+  font-size: $font-size-2xl;
+
+  @media (max-width: 767px) {
+    font-size: $font-size-xl;
+  }
 }
 
 .txt-blue {
-  color: rgb(35, 88, 141);
-  font-weight: 600;
-  letter-spacing: 0.07px;
+  color: $color-primary;             /* Azul profesional */
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.5px;             /* Espaciado sutil */
 }
 
 .txt-blue1 {
-  color: blue !important;
-  font-weight: 600;
-  letter-spacing: 0.07px;
+  color: $color-primary !important;  /* Forzar azul */
+  font-weight: $font-weight-semibold;
 }
 
-h1 {
-  color: rgb(35, 88, 141);
+.txt-success { color: $color-success; }
+.txt-warning { color: $color-warning; }
+.txt-danger { color: $color-danger; }
+.txt-info { color: $color-info; }
+
+.txt-muted {
+  color: $color-text-light;          /* Gris para texto muted */
+  font-weight: $font-weight-light;
 }
 
-.text-center {
-  text-align: center;
+/* ===== TAGS Y BADGES =====
+   Estilos para etiquetas y distintivos
+   ======================== */
+
+.tag2 {
+  border: $border-width-normal solid $color-border !important;
+  background: $color-bg-light !important;             /* Fondo muy claro */
+  color: $color-text-dark !important;
+  padding: $space-xs $space-md !important;            /* Padding compacto */
+  border-radius: $border-radius-sm !important;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $color-bg-lighter !important;        /* Más claro al hover */
+    border-color: $color-primary !important;
+    color: $color-primary !important;
+  }
 }
 
+.tag3 {
+  letter-spacing: 0.5px;             /* Espaciado de letras */
+  font-weight: $font-weight-medium;
+}
+
+/* ===== MENUBAR - NAVEGACIÓN STICKY =====
+   Menú fijo en la parte superior
+   ===================================== */
+
+.menu-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;                     /* Estar encima de otros elementos */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: $color-bg-white;
+  border-bottom: $border-width-thin solid $color-border;
+  box-shadow: $shadow-sm;            /* Sombra sutil para separación */
+  transition: box-shadow $transition-normal;
+
+  /* Cambiar sombra cuando se hace scroll */
+  &.scrolled {
+    box-shadow: $shadow-md;
+  }
+}
+
+/* ===== COMPONENTES PRIMENG =====
+   Mejoras visuales para componentes de PrimeNG
+   ================================ */
+
+/* Select mejorado */
 .p-select {
   height: 3.5rem !important;
-  padding-top: 10px !important;
+  padding-top: $space-md !important;
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
+  border-radius: $border-radius-md !important;
+  border: $border-width-thin solid $color-border !important;
+  background-color: $color-bg-white !important;
+  transition: all $transition-normal !important;
+
+  &:hover {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 2px $color-primary-light !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    border-color: $color-primary !important;
+    box-shadow: $shadow-focus !important;
+  }
 }
 
 .p-select-label {
   line-height: normal !important;
-  padding: 0 1rem !important;
+  padding: 0 $space-lg !important;
+  color: $color-text-medium !important;
+  font-size: $font-size-base;
 }
 
 .p-select-trigger {
   display: flex;
   align-items: center;
-}
-
-
-
-
-/*-----------------| MENUBAR |-----------------*/
-
-.menu-wrapper {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  display: flex;
   justify-content: center;
 }
 
+/* Input y textarea con estilos mejorados */
+.p-input-text,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  border: $border-width-thin solid $color-border !important;
+  border-radius: $border-radius-md !important;
+  padding: $space-md $space-lg !important;
+  font-size: $font-size-base;
+  font-family: inherit;
+  transition: all $transition-normal;
+  color: $color-text-dark;
+  background-color: $color-bg-white;
 
-/*-----------------| IBBC |-----------------*/
+  &:hover {
+    border-color: $color-primary !important;
+  }
 
-@media (max-width: 768px) {
+  &:focus {
+    outline: none !important;
+    border-color: $color-primary !important;
+    box-shadow: $shadow-focus !important;
+  }
+
+  &::placeholder {
+    color: $color-text-light;
+  }
+}
+
+/* Botones con estilos mejorados */
+.p-button {
+  border-radius: $border-radius-md !important;
+  font-weight: $font-weight-semibold;
+  padding: $space-md $space-xl !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all $transition-normal !important;
+
+  /* Botón primario */
+  &.p-button-primary {
+    background-color: $color-primary !important;
+    color: $color-bg-white !important;
+
+    &:hover {
+      background-color: $color-primary-dark !important;
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  /* Botón secundario */
+  &.p-button-secondary {
+    background-color: $color-secondary !important;
+    color: $color-bg-white !important;
+
+    &:hover {
+      background-color: color.adjust($color-secondary, $lightness: -10%) !important;
+    }
+  }
+
+  /* Botón de éxito */
+  &.p-button-success {
+    background-color: $color-success !important;
+    color: $color-bg-white !important;
+
+    &:hover {
+      background-color: color.adjust($color-success, $lightness: -10%) !important;
+    }
+  }
+
+  /* Botón de peligro */
+  &.p-button-danger {
+    background-color: $color-danger !important;
+    color: $color-bg-white !important;
+
+    &:hover {
+      background-color: color.adjust($color-danger, $lightness: -10%) !important;
+    }
+  }
+
+  /* Botón outlined (solo borde) */
+  &.p-button-outlined {
+    background-color: transparent !important;
+    border: $border-width-normal solid $color-primary !important;
+    color: $color-primary !important;
+
+    &:hover {
+      background-color: $color-primary-light !important;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* Cards/Panels de PrimeNG */
+.p-card {
+  border: $border-width-thin solid $color-border !important;
+  border-radius: $border-radius-lg !important;
+  box-shadow: $shadow-sm !important;
+  background-color: $color-bg-white !important;
+  transition: all $transition-normal;
+
+  &:hover {
+    box-shadow: $shadow-md !important;
+  }
+
+  .p-card-header {
+    background-color: $color-bg-light;
+    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    padding: $space-lg !important;
+  }
+
+  .p-card-body {
+    padding: $space-lg !important;
+  }
+
+  .p-card-footer {
+    background-color: $color-bg-light;
+    border-radius: 0 0 $border-radius-lg $border-radius-lg;
+    padding: $space-lg !important;
+  }
+}
+
+/* Tabla (DataTable) mejorada */
+.p-datatable {
+  border: $border-width-thin solid $color-border !important;
+  border-radius: $border-radius-md !important;
+  overflow: hidden;
+
+  .p-datatable-header {
+    background-color: $color-bg-light;
+    border-bottom: $border-width-thin solid $color-border;
+    padding: $space-lg !important;
+  }
+
+  .p-datatable-thead > tr > th {
+    background-color: $color-bg-light;
+    color: $color-text-dark;
+    font-weight: $font-weight-semibold;
+    padding: $space-md $space-lg !important;
+    border-bottom: $border-width-normal solid $color-border;
+  }
+
+  .p-datatable-tbody > tr {
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-lighter !important;
+    }
+
+    > td {
+      padding: $space-md $space-lg !important;
+      border-bottom: $border-width-thin solid $color-border-light;
+      color: $color-text-dark;
+    }
+  }
+
+  .p-datatable-footer {
+    background-color: $color-bg-light;
+    border-top: $border-width-thin solid $color-border;
+    padding: $space-lg !important;
+  }
+}
+
+/* Dialog/Modal mejorado */
+.p-dialog .p-dialog-header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
+  color: $color-bg-white;
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+}
+
+/* ===== ACCORDION =====
+   Estilos para acordeones responsivos
+   ======================== */
+
+@media (max-width: 767px) {
   .accordion-header {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: column;           /* Vertical en móviles */
+    gap: $space-md;                   /* Espacio entre elementos */
   }
 
-  .accordion-header>div {
-    width: 100%;
+  .accordion-header > div {
+    width: 100%;                      /* Full width en móviles */
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .accordion-header {
-    flex-direction: row;
+    flex-direction: row;              /* Horizontal en desktop */
+    gap: $space-lg;
   }
 
-  .accordion-header>div {
-    width: 25%;
+  .accordion-header > div {
+    width: 25%;                       /* 4 columnas en desktop */
+  }
+
+  @media (min-width: 1024px) {
+    .accordion-header > div {
+      flex: 1;
+      min-width: 0;
+    }
   }
 }
 
+/* ===== UTILIDADES RESPONSIVAS =====
+   Clases útiles para show/hide según tamaño
+   ==================================== */
 
-/* Pantallas grandes (desktop) */
-body {
-  font-size: 16px;
+.show-mobile {
+  @media (min-width: 768px) {
+    display: none !important;
+  }
 }
 
-h1 {
-  font-size: 32px;
+.hide-mobile {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
 }
 
-h2 {
-  font-size: 24px;
+.show-tablet {
+  @media (max-width: 767px),
+         (min-width: 1024px) {
+    display: none !important;
+  }
 }
 
-p {
-  font-size: 16px;
+.show-desktop {
+  @media (max-width: 1023px) {
+    display: none !important;
+  }
 }
 
-.text-base {
-  font-size: 16px;
-}
+/* ===== ENFOQUE RESPONSIVO GENERAL =====
+   Media queries para adaptación a diferentes dispositivos
+   ====================================== */
 
-/* Pantallas medianas (tablets) */
-@media (max-width: 768px) {
+/* Extra pequeño (teléfono: 320px - 639px) */
+@media (max-width: 639px) {
   body {
-    font-size: 14px;
+    font-size: 15px;                 /* Ligeramente más pequeño en móviles */
   }
 
-  h1 {
-    font-size: 24px;
-  }
+  h1 { font-size: $font-size-2xl; }
+  h2 { font-size: $font-size-xl; }
+  h3 { font-size: $font-size-lg; }
 
-  h2 {
-    font-size: 18px;
-  }
-
-  p {
-    font-size: 14px;
-  }
-
-  .text-base {
-    font-size: 14px;
+  .container-bordered {
+    padding: $space-md;
+    margin: $space-md;
   }
 }
 
-/* Pantallas pequeñas (teléfonos) */
-@media (max-width: 480px) {
+/* Pequeño (teléfono grande: 640px - 767px) */
+@media (min-width: 640px) and (max-width: 767px) {
   body {
-    font-size: 12px;
+    font-size: $font-size-base;
+  }
+}
+
+/* Mediano (tablet: 768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: $font-size-base;
   }
 
-  h1 span {
-    font-size: 20px;
+  .container-bordered {
+    max-width: 90%;
+    padding: $space-xl;
+  }
+}
+
+/* Grande (desktop pequeño: 1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .container-bordered {
+    max-width: 100%;
+  }
+}
+
+/* Muy grande (desktop: 1280px - 1919px) */
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .container-bordered {
+    max-width: 1200px;
+  }
+}
+
+/* Extra grande (4K: 1920px+) */
+@media (min-width: 1920px) {
+  body {
+    font-size: 17px;
+    letter-spacing: 0.4px;
   }
 
-  h2 {
-    font-size: 16px;
-  }
-
-  p {
-    font-size: 12px;
-  }
-
-  .text-base {
-    font-size: 12px;
+  .container-bordered {
+    max-width: 1400px;
+    padding: $space-3xl;
   }
 }

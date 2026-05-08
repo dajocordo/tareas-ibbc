@@ -1,165 +1,313 @@
+/* =====================================================
+   APP COMPONENT STYLES - Estilos del componente raíz
+   Componente principal de la app de tareas
+   ===================================================== */
+
 :host {
-  --bright-blue: oklch(51.01% 0.274 263.83);
-  --electric-violet: oklch(53.18% 0.28 296.97);
-  --french-violet: oklch(47.66% 0.246 305.88);
-  --vivid-pink: oklch(69.02% 0.277 332.77);
-  --hot-red: oklch(61.42% 0.238 15.34);
-  --orange-red: oklch(63.32% 0.24 31.68);
+  /* --- PALETA EXTENDIDA CON GRADIENTES HERMOSOS --- */
+  /* Variables OKLCH: mejor percepción perceptual del color (L, C, H) */
+  
+  --bright-blue: oklch(51.01% 0.274 263.83);           /* Azul vibrante */
+  --electric-violet: oklch(53.18% 0.28 296.97);        /* Violeta eléctrico */
+  --french-violet: oklch(47.66% 0.246 305.88);         /* Violeta francés */
+  --vivid-pink: oklch(69.02% 0.277 332.77);            /* Rosa vívido */
+  --hot-red: oklch(61.42% 0.238 15.34);                /* Rojo caliente */
+  --orange-red: oklch(63.32% 0.24 31.68);              /* Naranja-rojo */
 
-  --gray-900: oklch(19.37% 0.006 300.98);
-  --gray-700: oklch(36.98% 0.014 302.71);
-  --gray-400: oklch(70.9% 0.015 304.04);
+  /* --- ESCALA DE GRISES NEUTRAL --- */
+  --gray-900: oklch(19.37% 0.006 300.98);              /* Casi negro - texto principal */
+  --gray-700: oklch(36.98% 0.014 302.71);              /* Gris oscuro - texto secundario */
+  --gray-400: oklch(70.9% 0.015 304.04);               /* Gris claro - elementos auxiliares */
 
-  --red-to-pink-to-purple-vertical-gradient: linear-gradient(180deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%);
+  /* --- GRADIENTES: Degradados hermosos para elementos visuales --- */
+  --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+    180deg,
+    var(--orange-red) 0%,
+    var(--vivid-pink) 50%,
+    var(--electric-violet) 100%
+  );
 
-  --red-to-pink-to-purple-horizontal-gradient: linear-gradient(90deg,
-      var(--orange-red) 0%,
-      var(--vivid-pink) 50%,
-      var(--electric-violet) 100%);
+  --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+    90deg,
+    var(--orange-red) 0%,
+    var(--vivid-pink) 50%,
+    var(--electric-violet) 100%
+  );
 
-  --pill-accent: var(--bright-blue);
+  /* --- ACCENTO PRINCIPAL --- */
+  --pill-accent: var(--bright-blue);                   /* Color por defecto para pills */
 
+  /* --- TIPOGRAFÍA GLOBAL ---
+     Aplicar fuentes modernas y mejorar legibilidad en toda la app */
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+  box-sizing: border-box;                              /* Incluir padding y border en tamaño */
+  -webkit-font-smoothing: antialiased;                 /* Suavizar fuentes en Safari */
+  -moz-osx-font-smoothing: grayscale;                  /* Suavizar fuentes en Firefox */
 }
+
+/* ===== ESTILOS DE HEADINGS =====
+   Títulos con jerarquía clara y atractiva
+   ============================== */
 
 h1 {
-  font-size: 3.125rem;
+  font-size: 3.125rem;                                 /* 50px - Título principal grande */
   color: var(--gray-900);
-  font-weight: 500;
-  line-height: 100%;
-  letter-spacing: -0.125rem;
+  font-weight: 500;                                    /* Medium weight para elegancia */
+  line-height: 100%;                                   /* Sin espacio extra */
+  letter-spacing: -0.125rem;                           /* -2px: comprimido para impacto */
   margin: 0;
-  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", 
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+
+  /* Tablets: reducir tamaño */
+  @media (max-width: 768px) {
+    font-size: 2rem;                                   /* 32px en tablets */
+    letter-spacing: -1px;
+  }
+
+  /* Móviles: aún más pequeño */
+  @media (max-width: 480px) {
+    font-size: 1.5rem;                                 /* 24px en móviles */
+    letter-spacing: 0;
+  }
 }
 
+/* Párrafos con color y margen reestablecido */
 p {
-  margin: 0;
-  color: var(--gray-700);
+  margin: 0;                                           /* Sin margin por defecto */
+  color: var(--gray-700);                              /* Gris oscuro para mejor legibilidad */
+  line-height: 1.6;                                    /* Altura de línea generosa */
 }
+
+/* ===== CONTENEDOR PRINCIPAL (main) =====
+   Layout flexbox centrado para contenido
+   ===================================== */
 
 main {
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  box-sizing: inherit;
-  position: relative;
+  width: 100%;                                         /* Ancho completo */
+  min-height: 100%;                                    /* Altura mínima de la pantalla */
+  display: flex;                                       /* Usar flexbox */
+  justify-content: center;                             /* Centrar horizontalmente */
+  align-items: center;                                 /* Centrar verticalmente */
+  padding: 1rem;                                       /* 16px padding en todos lados */
+  box-sizing: inherit;                                 /* Heredar box-sizing del host */
+  position: relative;                                  /* Referencia para posicionamiento */
 }
 
+/* ===== COMPONENTES VISUALES REUTILIZABLES =====
+   Elementos comunes como logos y contenedores
+   =========================================== */
+
 .angular-logo {
-  max-width: 9.2rem;
+  max-width: 9.2rem;                                   /* Limitar ancho máximo */
+  height: auto;                                        /* Mantener proporción */
 }
+
+/* ===== CONTENEDOR DE CONTENIDO =====
+   Layout para agrupar items horizontalmente
+   ====================================== */
 
 .content {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around;                       /* Distribuir espacio entre items */
   width: 100%;
-  max-width: 700px;
-  margin-bottom: 3rem;
+  max-width: 700px;                                    /* Ancho máximo: 700px */
+  margin-bottom: 3rem;                                 /* 48px de espacio abajo */
+  gap: 2rem;                                           /* Espacio entre elementos */
+
+  /* Responsive: apilarse en móviles */
+  @media (max-width: 650px) {
+    flex-direction: column;                            /* Vertical en móviles */
+    width: max-content;
+    gap: 1.5rem;
+  }
 }
 
 .content h1 {
-  margin-top: 1.75rem;
+  margin-top: 1.75rem;                                 /* 28px arriba */
+  margin-bottom: 1rem;                                 /* Agregar espacio abajo */
 }
 
 .content p {
-  margin-top: 1.5rem;
+  margin-top: 1.5rem;                                  /* 24px arriba */
+  font-size: 0.95rem;                                  /* Ligeramente más pequeño */
 }
 
+/* ===== DIVISOR VISUAL =====
+   Línea divisoria con gradiente
+   ========================= */
+
 .divider {
-  width: 1px;
-  background: var(--red-to-pink-to-purple-vertical-gradient);
-  margin-inline: 0.5rem;
+  width: 1px;                                          /* 1 pixel de ancho */
+  background: var(--red-to-pink-to-purple-vertical-gradient); /* Gradiente hermoso */
+  margin-inline: 0.5rem;                               /* 8px a los lados */
+  min-height: 100px;                                   /* Altura mínima */
+
+  /* En móviles: horizontal en lugar de vertical */
+  @media screen and (max-width: 650px) {
+    height: 1px;                                       /* 1 pixel de alto */
+    width: 100%;                                       /* Ancho completo */
+    background: var(--red-to-pink-to-purple-horizontal-gradient); /* Gradiente horizontal */
+    margin-block: 1.5rem;                              /* 24px arriba y abajo */
+    margin-inline: 0;
+  }
 }
+
+/* ===== GRUPO DE PILLS (ETIQUETAS COLORIDAS) =====
+   Contenedor para mostrar múltiples pills/tags
+   =========================================== */
 
 .pill-group {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  flex-wrap: wrap;
-  gap: 1.25rem;
+  flex-direction: column;                              /* Apilar verticalmente */
+  align-items: flex-start;                             /* Alineación izquierda */
+  flex-wrap: wrap;                                     /* Permitir salto a nueva línea */
+  gap: 1.25rem;                                        /* 20px entre pills */
+
+  /* Responsive: permitir más pills por fila en desktop */
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
+
+/* ===== PILL INDIVIDUAL =====
+   Etiqueta con color dinámico y efecto hover
+   ============================== */
 
 .pill {
   display: flex;
-  align-items: center;
-  --pill-accent: var(--bright-blue);
+  align-items: center;                                 /* Alinear contenido verticalmente */
+  --pill-accent: var(--bright-blue);                   /* Color por defecto */
+
+  /* Fondo con color semi-transparente (5% opacidad) */
   background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
-  color: var(--pill-accent);
-  padding-inline: 0.75rem;
-  padding-block: 0.375rem;
-  border-radius: 2.75rem;
-  border: 0;
-  transition: background 0.3s ease;
-  font-family: var(--inter-font);
-  font-size: 0.875rem;
+  
+  color: var(--pill-accent);                           /* Texto del color del acento */
+  padding-inline: 0.75rem;                             /* 12px horizontal */
+  padding-block: 0.375rem;                             /* 6px vertical */
+  border-radius: 2.75rem;                              /* Completamente redondeado */
+  border: 0;                                           /* Sin borde */
+  transition: background 250ms ease-in-out;            /* Transición suave */
+  font-family: inherit;
+  font-size: 0.875rem;                                 /* 14px */
   font-style: normal;
-  font-weight: 500;
-  line-height: 1.4rem;
-  letter-spacing: -0.00875rem;
-  text-decoration: none;
+  font-weight: 500;                                    /* Medium weight */
+  line-height: 1.4rem;                                 /* Altura de línea */
+  letter-spacing: -0.00875rem;                         /* Ligeramente comprimido */
+  text-decoration: none;                               /* Quitar subrayado si es link */
+  cursor: pointer;                                     /* Indicar que es clicable */
+
+  /* Efecto hover: más color visible */
+  &:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent); /* 15% opacidad */
+    transform: translateY(-2px);                       /* Pequeña elevación */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);         /* Sombra sutil */
+  }
+
+  /* Efecto active: presionado */
+  &:active {
+    transform: translateY(0);                          /* Volver a posición normal */
+  }
+
+  /* SVG dentro del pill: espaciado pequeño */
+  svg {
+    margin-inline-start: 0.25rem;                      /* 4px a la izquierda */
+    width: 1rem;                                       /* 16px de ancho */
+    height: 1rem;
+  }
 }
 
-.pill:hover {
-  background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
-}
+/* ===== COLORES DINÁMICOS PARA PILLS =====
+   Cada N-ésimo pill recibe un color diferente de forma cíclica
+   ======================================== */
 
 .pill-group .pill:nth-child(6n + 1) {
-  --pill-accent: var(--bright-blue);
+  --pill-accent: var(--bright-blue);                   /* Posición 1, 7, 13... → Azul */
 }
 
 .pill-group .pill:nth-child(6n + 2) {
-  --pill-accent: var(--french-violet);
+  --pill-accent: var(--french-violet);                 /* Posición 2, 8, 14... → Violeta */
 }
 
 .pill-group .pill:nth-child(6n + 3),
 .pill-group .pill:nth-child(6n + 4),
 .pill-group .pill:nth-child(6n + 5) {
-  --pill-accent: var(--hot-red);
+  --pill-accent: var(--hot-red);                       /* Posición 3-5, 9-11, 15-17... → Rojo */
 }
 
-.pill-group svg {
-  margin-inline-start: 0.25rem;
-}
+/* ===== ENLACES SOCIALES =====
+   Grupo de iconos con efecto hover
+   ========================== */
 
 .social-links {
-  display: flex;
-  align-items: center;
-  gap: 0.73rem;
-  margin-top: 1.5rem;
+  display: flex;                                       /* Mostrar en fila */
+  align-items: center;                                 /* Alinear verticalmente */
+  gap: 0.73rem;                                        /* ~12px entre iconos */
+  margin-top: 1.5rem;                                  /* 24px arriba */
+
+  /* Links individuales */
+  a {
+    display: inline-flex;
+    align-items: center;
+    transition: transform 250ms ease-in-out;           /* Transición suave */
+
+    &:hover {
+      transform: scale(1.1);                           /* Agrandar 10% al hover */
+    }
+
+    &:active {
+      transform: scale(0.95);                          /* Empequeñecer 5% al clic */
+    }
+  }
 }
 
 .social-links path {
-  transition: fill 0.3s ease;
-  fill: var(--gray-400);
+  transition: fill 250ms ease-in-out;                  /* Transición de color suave */
+  fill: var(--gray-400);                               /* Color gris claro inicial */
 }
 
 .social-links a:hover svg path {
-  fill: var(--gray-900);
+  fill: var(--gray-900);                               /* Color gris oscuro al hover */
 }
+
+/* ===== MEDIA QUERY PARA RESPONSIVIDAD =====
+   Ajustes específicos para pantallas pequeñas
+   ========================================= */
 
 @media screen and (max-width: 650px) {
   .content {
-    flex-direction: column;
+    flex-direction: column;                            /* Apilar verticalmente */
     width: max-content;
+    gap: 1rem;                                         /* Reducir gap */
   }
 
   .divider {
-    height: 1px;
+    height: 1px;                                       /* Convertir a horizontal */
     width: 100%;
     background: var(--red-to-pink-to-purple-horizontal-gradient);
     margin-block: 1.5rem;
+    margin-inline: 0;
+  }
+
+  h1 {
+    font-size: 1.75rem;                                /* 28px en móviles pequeños */
+  }
+
+  p {
+    font-size: 0.875rem;                               /* 14px en móviles pequeños */
+  }
+
+  .pill-group {
+    gap: 1rem;                                         /* Reducir espacio entre pills */
+    flex-direction: column;
+  }
+
+  .social-links {
+    gap: 0.5rem;                                       /* Reducir espacio entre iconos */
   }
 }
