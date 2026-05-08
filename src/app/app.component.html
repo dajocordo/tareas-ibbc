@@ -49,7 +49,7 @@
   </div>
 
   <div *ngIf="tabValue === 'tareas'">
-    <p-accordion styleClass="striped-accordion" [activeIndex]="selectedValue" [multiple]="false">
+    <p-accordion styleClass="striped-accordion" [activeIndex]="selectedTarea" [multiple]="false">
       <p-accordion-panel *ngFor="let item of tareasFiltered; let i = index" [value]="item.id"
         [ngStyle]="getAccordionStyle(i)">
         <p-accordion-header>

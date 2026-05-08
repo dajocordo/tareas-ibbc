@@ -40,10 +40,14 @@ export class AppComponent implements OnInit {
   value: string = 'tareas';
   tabValue: string = 'tareas';
   activeTab: number = 1;
-  selectedValue: number = 0;
+  selectedTarea: number = 0;
   selectedMateria: number = 0;
-  selectedFecha: number = 0;
+  selectedFecha: number = 1;
   items = []
+
+  /* ===== MAPAS PARA BÚSQUEDAS RÁPIDAS O(1) ===== */
+  companeroMap: Map<number, any> = new Map();  /* Mapa ID → Compañero (foto, apodo) */
+  materiaMap: Map<number, any> = new Map();    /* Mapa ID → Materia (name, severity) */
 
   materias = [
     { id: 0, severity: '', name: 'Todas' },
@@ -754,8 +758,14 @@ export class AppComponent implements OnInit {
   // ];
   //}
 
+  private buildLookups() {
+    this.companeroMap = new Map(this.companeros.map((compa: any) => [compa.id, compa]));
+    this.materiaMap = new Map(this.materias.map((materia: any) => [materia.id, materia]));
+  }
+
 
   ngOnInit() {
+    this.buildLookups();
     this.onMenuClick(1);
     this.menuItems = [
       {
@@ -783,28 +793,8 @@ export class AppComponent implements OnInit {
         command: () => this.onMenuClick(4)
       }
     ];
-    this.tareasFiltered = [...this.tareas];
-    this.exposFiltered = [...this.expos];
-    this.examenFiltered = [...this.examenes];
-    this.predicasFiltered = [...this.predicas];
     this.selectedMateria = this.materias[0].id;
-    this.predicasFiltered = this.predicasFiltered.map(item => ({
-      ...item,
-      ...this.updateMateriaSeverity(item),
-      ...this.addFotoApodoUser(item)
-    }));
-    this.exposFiltered = this.expos.map((expo: any) =>
-    ({
-      ...expo,
-      ...this.updateMateriaSeverity(expo),
-      integrantes: expo.integrantes.map((item: any) => ({
-        ...item,
-        ...this.addFotoApodoUser(item)
-      }))
-    })
-    );
-    this.tareasFiltered = this.tareas.map(item => this.updateMateriaSeverity(item));
-    this.examenFiltered = this.examenes.map(item => this.updateMateriaSeverity(item));
+    this.filtrarTodo();
   }
 
   onMenuClick(value: number) {
@@ -827,19 +817,19 @@ export class AppComponent implements OnInit {
   }
 
   getFoto(id: number) {
-    return this.companeros.find((compa: any) => compa.id === id)?.foto ?? '';
+    return this.companeroMap.get(id)?.foto ?? '';
   }
 
   getApodo(id: number) {
-    return this.companeros.find((compa: any) => compa.id === id)?.apodo ?? '';
+    return this.companeroMap.get(id)?.apodo ?? '';
   }
 
   getMateriaName(id: number) {
-    return this.materias.find((materia: any) => materia.id === id)?.name ?? '';
+    return this.materiaMap.get(id)?.name ?? '';
   }
 
   getMateriaColor(id: number) {
-    return this.materias.find((materia: any) => materia.id === id)?.severity ?? '';
+    return this.materiaMap.get(id)?.severity ?? '';
   }
 
   getAccordionStyle(index: number) {
