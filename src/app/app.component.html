@@ -144,8 +144,8 @@
             </div>
           </td>
           <td>
-            Grupo # {{ item.grupo }}
-            {{ item.tema }}
+            <div>Grupo # {{ item.grupo }}</div>
+            <div [innerHTML]="item.tema"></div>
           </td>
         </tr>
       </ng-template>
