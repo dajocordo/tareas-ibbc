@@ -35,31 +35,37 @@
       <p-accordion-panel *ngFor="let item of tareasFiltered; let i = index" [value]="item.id"
         [ngStyle]="getAccordionStyle(i)">
         <p-accordion-header>
-          <div class="w-1/4">
-            <p-tag class="tag2">
-              <div class="flex items-center gap-2 px-1">
-                <span class="text-base">
-                  🗓️
-                </span>
-                <span class="text-base txt-blue">
-                  {{ formatearFechas(item.dateFormatted) }}
-                </span>
-              </div>
-            </p-tag>
-          </div>
-          <div class="w-1/3">
-            <p-tag class="tag3" [severity]="item.severity">
-              <div class="flex items-center gap-2 px-1">
-                <span class="text-base">
-                  {{ item.materia }}
-                </span>
-              </div>
-            </p-tag>
-          </div>
-          <div class="w-1/3">
-            {{ item.nombre }}
-            <p class="txt-blue1">{{ item.subtitulo }}</p>
-          </div>
+           <div class="contenedor1">
+             <div class="tarea-1">
+               <div class="contenedor2">
+                 <div class="probando">
+                   <p-tag class="tag2">
+                     <div class="flex items-center gap-2 px-1">
+                       <span class="text-base">
+                         🗓️
+                       </span>
+                       <span class="text-base txt-blue">
+                         {{ formatearFechas(item.dateFormatted) }}
+                       </span>
+                     </div>
+                   </p-tag>
+                 </div>
+                 <div class="probando">
+                   <p-tag class="tag3" [severity]="item.severity">
+                     <div class="flex items-center gap-2 px-1">
+                       <span class="text-base">
+                         {{ item.materia }}
+                       </span>
+                     </div>
+                   </p-tag>
+                 </div>
+               </div>
+             </div>
+             <div class="tarea-2">
+               {{ item.nombre }}
+               <p class="txt-blue1">{{ item.subtitulo }}</p>
+             </div>
+           </div>
         </p-accordion-header>
         <p-accordion-content>
           <!-- <p class="m-0" style="white-space: pre-wrap;">{{ item.detalles }}</p> -->
