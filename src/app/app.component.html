@@ -26,20 +26,20 @@
         </ng-template>
       </p-selectbutton>
     </div> -->
- <div style="display: flex; gap: 1rem; padding-top: 20px;">
-  <div style="flex: 1;">
+  <div style="display: flex; gap: 1rem; padding-top: 20px;">
+    <div style="flex: 1;">
 
       <!-- <p-select [options]="materias" [(ngModel)]="selectedMateria" [checkmark]="true" optionLabel="name"
         optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" placeholder="Filtrar materia"
         class="w-full md:w-56" /> -->
       <p-iftalabel styleClass="w-full">
-        <p-select [(ngModel)]="selectedMateria" inputId="filtro-materias" [options]="materias" optionLabel="name"
+        <p-select [(ngModel)]="selectedMateria" inputId="filtro-materias" [options]="materias" optionLabel="nombre"
           optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" class="w-full"
           styleClass="w-full" />
         <label for="filtro-materias">Materia</label>
       </p-iftalabel>
     </div>
-  <div style="flex: 1;">
+    <div style="flex: 1;">
       <p-iftalabel styleClass="w-full">
         <p-select [(ngModel)]="selectedFecha" inputId="filtro-fechas" [options]="fechas" optionLabel="name"
           optionValue="id" [showClear]="false" (onChange)="onFechaChange($event)" class="w-full" styleClass="w-full" />
@@ -60,7 +60,7 @@
                   🗓️
                 </span>
                 <span class="text-base txt-blue">
-                  {{ item.date }}
+                  {{ formatearFechas(item.dateFormatted) }}
                 </span>
               </div>
             </p-tag>
@@ -78,8 +78,8 @@
             </p-tag>
           </div>
           <div class="w-1/3">
-            {{ item.titulo }}
-            <p class="txt-blue1">{{ item.preview }}</p>
+            {{ item.nombre }}
+            <p class="txt-blue1">{{ item.subtitulo }}</p>
           </div>
         </p-accordion-header>
         <p-accordion-content>
@@ -110,7 +110,7 @@
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
                 <span class="text-base txt-blue">
-                  {{ item.date }}
+                  {{ formatearFechas(item.dateFormatted) }}
                 </span>
               </div>
             </p-tag>
@@ -146,7 +146,7 @@
           </td>
           <td>
             <div>Grupo # {{ item.grupo }}</div>
-            <div [innerHTML]="item.tema"></div>
+            <div [innerHTML]="item.nombre"></div>
           </td>
         </tr>
       </ng-template>
@@ -172,7 +172,7 @@
               <span class="font-bold text-center md:text-left txt-blue">{{ item.compa }}</span>
             </div>
           </td>
-          <td>{{ item.libro }}</td>
+          <td>{{ item.nombre }}</td>
           <td>
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
@@ -181,7 +181,7 @@
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
                 <span class="text-base txt-blue">
-                  {{ item.date }}
+                  {{ formatearFechas(item.dateFormatted) }}
                 </span>
               </div>
             </p-tag>
@@ -194,7 +194,7 @@
                   ✍🏽
                 </span> -->
                 <span class="text-base">
-                  {{ item.materia }}
+                  Panorama
                 </span>
               </div>
             </p-tag>
@@ -219,11 +219,11 @@
             <p-tag class="tag2">
               <div class="flex items-center gap-2 px-1">
                 <span class="text-base txt-blue">
-                  <i [class]="item.done ? 'pi pi-check' : 'pi pi-calendar'"></i>
+                  <i [class]="item.hoy > item.dateFormatted ? 'pi pi-check' : 'pi pi-calendar'"></i>
                   <!-- {{ item.done ? '✅' : '🗓️' }} -->
                 </span>
                 <span class="text-base txt-blue">
-                  {{ item.date }}
+                  {{ formatearFechas(item.dateFormatted) }}
                 </span>
               </div>
             </p-tag>
@@ -241,7 +241,7 @@
             </p-tag>
           </td>
           <td>
-            {{ item.titulo }}
+            {{ item.nombre }}
           </td>
         </tr>
       </ng-template>
