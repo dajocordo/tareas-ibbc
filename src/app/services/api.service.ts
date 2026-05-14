@@ -1,13 +1,14 @@
-import { Injectable, inject, signal } from '@angular/core'; // <-- Añade 'inject' aquí
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private readonly baseUrl = 'https://bmyxynn762.execute-api.us-east-1.amazonaws.com/';
+  private readonly baseUrl = environment.baseUrl;
 
   materias = signal<any[]>([]);
   examenes = signal<any[]>([]);
@@ -27,10 +28,7 @@ export class ApiService {
         this.http.get(`${this.baseUrl}/${endpoint}`)
       );
 
-      // 2. Extraemos el array que viene dentro de la propiedad 'data'
       const listaExtraida = response.data || [];
-
-      //console.log(`Datos obtenidos de ${endpoint}:`, listaExtraida);
 
       // 3. Guardamos solo el array en la Signal
       if (endpoint === 'materias') {
