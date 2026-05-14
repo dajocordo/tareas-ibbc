@@ -4,7 +4,7 @@ import { formatDate } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
-export class DateTransformerService {
+export class DateService {
 
   private readonly locale = inject(LOCALE_ID);
 

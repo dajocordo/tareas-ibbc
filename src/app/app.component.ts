@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { MenuItem } from 'primeng/api';
 import { ApiService } from './services/api.service';
-import { DateTransformerService } from './services/date.service';
+import { DateService } from './services/date.service';
 
 
 @Component({
@@ -37,7 +37,7 @@ import { DateTransformerService } from './services/date.service';
 
 export class AppComponent implements OnInit {
   public api = inject(ApiService);
-  public dateTransformer = inject(DateTransformerService);
+  public dateService = inject(DateService);
   title = 'tareas-ibbc';
   tituloActual: string = 'tareas';
   iconoActual: string = 'pi pi-list-check';
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
   menuItems: MenuItem[] | undefined;
 
   get hoy() {
-    return this.dateTransformer.hoy();
+    return this.dateService.hoy();
   }
 
   get examenes() {
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
 
   formatearFechas(dateStr: string) {
     //return 'siu';
-    return this.dateTransformer.transformarFechaApi(dateStr);
+    return this.dateService.transformarFechaApi(dateStr);
   }
 
   private normalizeCompaneroId(id: number | string): string {
