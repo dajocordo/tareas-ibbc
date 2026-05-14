@@ -1,11 +1,5 @@
 <div class="menu-wrapper">
   <p-menubar [model]="menuItems" [breakpoint]="'0px'">
-    <!-- <ng-template pTemplate="item" let-item>
-      <a class="p-menuitem-link" [ngClass]="{ 'active-menu': activeTab === item.value }" (click)="item.command($event)">
-        <span [class]="item.icon"></span>
-        <span class="p-menuitem-text ml-2">{{ item.label }}</span>
-      </a>
-    </ng-template> -->
   </p-menubar>
 </div>
 
@@ -17,21 +11,9 @@
     </h1>
   </div>
 
-  <!-- SelectButton - Full width en móvil, auto en desktop -->
-  <!-- <div class="w-full md:w-auto">
-      <p-selectbutton [options]="activityOptions" [(ngModel)]="tabValue" optionLabel="texto"
-        (onChange)="onSelectionChange($event)">
-        <ng-template #item let-item>
-          <p>{{item.texto}}</p>
-        </ng-template>
-      </p-selectbutton>
-    </div> -->
+
   <div style="display: flex; gap: 1rem; padding-top: 20px;">
     <div style="flex: 1;">
-
-      <!-- <p-select [options]="materias" [(ngModel)]="selectedMateria" [checkmark]="true" optionLabel="name"
-        optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" placeholder="Filtrar materia"
-        class="w-full md:w-56" /> -->
       <p-iftalabel styleClass="w-full">
         <p-select [(ngModel)]="selectedMateria" inputId="filtro-materias" [options]="materias" optionLabel="nombre"
           optionValue="id" [showClear]="false" (onChange)="onMateriaChange($event)" class="w-full"
@@ -68,9 +50,6 @@
           <div class="w-1/3">
             <p-tag class="tag3" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
-                <!-- <span class="text-base">
-                  ✍🏽
-                </span> -->
                 <span class="text-base">
                   {{ item.materia }}
                 </span>
@@ -118,9 +97,6 @@
           <td>
             <p-tag class="tag3" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
-                <!-- <span class="text-base">
-                  ✍🏽
-                </span> -->
                 <span class="text-base">
                   {{ item.materia }}
                 </span>
@@ -190,9 +166,6 @@
           <td>
             <p-tag class="tag3" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
-                <!-- <span class="text-base">
-                  ✍🏽
-                </span> -->
                 <span class="text-base">
                   Panorama
                 </span>
@@ -231,9 +204,6 @@
           <td>
             <p-tag class="tag3" [severity]="item.severity">
               <div class="flex items-center gap-2 px-1">
-                <!-- <span class="text-base">
-                  ✍🏽
-                </span> -->
                 <span class="text-base">
                   {{ item.materia }}
                 </span>
