@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenubarModule } from 'primeng/menubar';
 import { FormsModule } from '@angular/forms'; // 1. Import FormsModule
@@ -11,6 +11,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { MenuItem } from 'primeng/api';
+import { ApiService } from './services/api.service';
+import { DateService } from './services/date.service';
 
 
 @Component({
@@ -34,6 +36,8 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class AppComponent implements OnInit {
+  public api = inject(ApiService);
+  public dateService = inject(DateService);
   title = 'tareas-ibbc';
   tituloActual: string = 'tareas';
   iconoActual: string = 'pi pi-list-check';
@@ -41,21 +45,23 @@ export class AppComponent implements OnInit {
   tabValue: string = 'tareas';
   activeTab: number = 1;
   selectedTarea: number = 0;
-  selectedMateria: number = 0;
+  selectedMateria: string = 'materia#0';
   selectedFecha: number = 1;
   items = []
+  fechaActual = new Date();
 
   /* ===== MAPAS PARA BÚSQUEDAS RÁPIDAS O(1) ===== */
-  companeroMap: Map<number, any> = new Map();  /* Mapa ID → Compañero (foto, apodo) */
-  materiaMap: Map<number, any> = new Map();    /* Mapa ID → Materia (name, severity) */
+  companeroMap: Map<string, any> = new Map();  /* Mapa string ID → Compañero (foto, apodo) */
+  materiaMap: Map<string, any> = new Map();    /* Mapa string ID → Materia (name, severity) */
 
-  materias = [
-    { id: 0, severity: '', name: 'Todas' },
-    { id: 1, severity: 'success', name: 'Panorama' },
-    { id: 2, severity: 'danger', name: 'Liderazgo' },
-    { id: 3, severity: 'info', name: 'Homiletica I' },
-    { id: 4, severity: 'secondary', name: 'Teologia I' }
-  ];
+  get materias() {
+    return this.api.materias()
+      .slice()
+      .sort((a: any, b: any) => {
+        const parseId = (id: string) => Number(id.replace(/^materia#/, ''));
+        return parseId(a.id) - parseId(b.id);
+      });
+  }
 
   fechas = [
     { id: 0, severity: '', name: 'Todas' },
@@ -72,709 +78,73 @@ export class AppComponent implements OnInit {
 
   menuItems: MenuItem[] | undefined;
 
-  examenes: any[] = [
-    {
-      id: 1,
-      titulo: 'Examen # 1',
-      materiaCod: 2,
-      date: 'mar, 05 may',
-      dateFormat: '2026/05/05',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 2,
-      titulo: 'Examen # 1',
-      materiaCod: 3,
-      date: 'mar, 05 may',
-      dateFormat: '2026/05/05',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 3,
-      titulo: 'Examen # 1',
-      materiaCod: 4,
-      date: 'mie, 06 may',
-      dateFormat: '2026/05/06',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 4,
-      titulo: 'Examen # 1',
-      materiaCod: 1,
-      date: 'lun, 11 may',
-      dateFormat: '2026/05/11',
-      tipo: 1
-    },
-    {
-      id: 5,
-      titulo: 'Examen # 2',
-      materiaCod: 1,
-      date: 'lun, 01 jun',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 6,
-      titulo: 'Examen # 2',
-      materiaCod: 2,
-      date: 'mar, 02 jun',
-      dateFormat: '2026/06/02',
-      done: false,
-      tipo: 1
-    },
-  ]
+  get hoy() {
+    return this.dateService.hoy();
+  }
 
-  tareas: any[] = [
-    {
-      id: 1,
-      titulo: 'Tarea # 1',
-      preview: 'Cuestionario Hom.',
-      materiaCod: 3,
-      detalles: 'Cuestionario Homiletica & Oratoria: Descargue el recurso de lectura y elabore su primera tarea',
-      date: 'jue, 16 abr',
-      dateFormat: '2026/04/16',
-      tipo: 1
-    },
-    {
-      id: 2,
-      titulo: 'Tarea # 1',
-      preview: 'Intertestamentario',
-      materiaCod: 1,
-      detalles: 'Investigar los sucesos más importantes del periodo intertestamentario (400 años de silencio)',
-      date: 'lun, 20 abr',
-      dateFormat: '2026/04/20',
-      tipo: 1
-    },
-    {
-      id: 3,
-      titulo: 'Tarea # 1',
-      preview: 'El Plan Ministerial',
-      materiaCod: 2,
-      detalles: 'Elaborar su plan ministerial que incluya: misión y visión personal, sueños, metas y compromisos ministeriales.',
-      date: 'mar, 21 abr',
-      dateFormat: '2026/04/21',
-      tipo: 1
-    },
-    {
-      id: 35,
-      titulo: 'Guia # 1',
-      preview: 'Teologia Sistematica',
-      materiaCod: 4,
-      detalles: 'Comprender qué es la teología sistemática, por qué es importante para la vida cristiana y cuál es su relación con la doctrina bíblica. \n\ \n\ • Introducción del libro de Stanley Horton \n\ • Apuntes de clase \n\ \n\  Responda de forma breve pero clara: \n\ \n\ ¿Qué es la teología sistemática? \n\ ¿Por qué la doctrina sana es importante para la Iglesia? \n\ ¿Qué peligros enfrenta una iglesia que descuida la doctrina? \n\ ¿Cuál debe ser la relación entre doctrina y vida espiritual?',
-      date: 'mie, 22 abr',
-      dateFormat: '2026/04/22',
-      tipo: 1
-    },
-    {
-      id: 4,
-      titulo: 'Tarea # 1',
-      preview: 'Cuadro comparativo',
-      materiaCod: 4,
-      detalles: 'El estudiante elaborará un cuadro comparativo entre la doctrina de las Asambleas de Dios y la doctrina de otras dos corrientes o denominaciones presentes en el contexto actual.\n\ Puede elegir, por ejemplo:\n\ -Iglesia Católica Romana\n\ - Testigos de Jehová\n\ - Mormones\n\ - Iglesia de la Unicidad\n\ - Adventistas\n\ - otra corriente doctrinal relevante\n\ \n\ Considerando temas como:\n\ - La Biblia\n\ - Dios\n\ - Jesucristo\n\ - La Trinidad\n\ - La salvación\n\ - El Espíritu Santo\n\ - La Iglesia\n\ - Observaciones doctrinales finales\n\ \n\ Extensión:\n\ Puede presentarse en formato de cuadro o tabla, 2 a 3 paginas.\n\ Debe apoyarse en el libro de Horton, base bíblicas, apuntes de clase y fuentes confiables.',
-      date: 'mie, 22 abr',
-      dateFormat: '2026/04/22',
-      tipo: 1
-    },
-    {
-      id: 5,
-      titulo: 'Tarea # 2',
-      preview: 'Mapa de Palestina',
-      materiaCod: 1,
-      detalles: 'Dibujar a mano un mapa, ubicar Palestina y reconocer el movimiento de Jesús en su ministerio (las diferentes ciudades en las cuales transitó Jesús)',
-      date: 'lun, 27 abr',
-      dateFormat: '2026/04/27',
-      tipo: 1
-    },
-    {
-      id: 6,
-      titulo: 'Tarea # 2',
-      preview: 'Los Dones y el fruto',
-      materiaCod: 2,
-      detalles: 'Basados en 1a. Carta de Corintios Cap. 12 diseñar una infografía acerca de los dones y el fruto del Espíritu, identificando la trascendencia en su vida espiritual ¿Son necesarios? ¿Por qué? Relate una manifestación personal de estos en su vida.',
-      // date: 'mar, 28 abr',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-      tipo: 1
-    },
-    {
-      id: 7,
-      titulo: 'Tarea # 2',
-      preview: 'Pendiente indicaciones',
-      materiaCod: 3,
-      detalles: 'Descargue recurso y elabore trabajo segun indicaciones',
-      // date: 'mar, 28 abr',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-      tipo: 1
-    },
-    {
-      id: 8,
-      titulo: 'Tarea # 3',
-      preview: 'Pendiente indicaciones',
-      materiaCod: 3,
-      detalles: 'Descargue recurso y elabore trabajo segun indicaciones',
-      // date: 'mar, 05  may',
-      date: 'sin fecha',
-      dateFormat: '2026/06/01',
-      tipo: 1
-    },
-    {
-      id: 9,
-      titulo: 'Tarea # 2',
-      preview: 'Refutación de herejía',
-      materiaCod: 4,
-      detalles: 'Que el estudiante identifique un error doctrinal contemporáneo o histórico y lo refute bíblica y teológicamente, desarrollando discernimiento doctrinal y capacidad apologética básica. \n\ \n\ Seleccione de las siguientes opciones:\n\- Modalismo\n\- Arrianismo\n\- Teísmo abierto\n\- Universalismo\n\- Negación de la inspiración bíblica\n\ \n\Desarrolle un trabajo breve respondiendo:\n\ \n\- ¿En qué consiste esa enseñanza?\n\- ¿Por qué es doctrinalmente incorrecta?\n\- ¿Qué textos bíblicos la refutan?\n\- ¿Cómo respondería usted a alguien que sostiene esa idea?\n\ \n\ \n\ Extensión 2 a 3 paginas, formato de  Word o PDF, debe citar el libro de Horton y apuntes de clase.',
-      date: 'mie, 06 may',
-      dateFormat: '2026/05/06',
-      tipo: 1
-    },
-    {
-      id: 11,
-      titulo: 'Tarea # 3',
-      preview: 'Nuevo testamento',
-      materiaCod: 1,
-      detalles: 'Presentar una introducción a cada libro del Nuevo Testamento que incluya información básica sobre cada libro, su autor, propósito, sus destinatarios, fecha, tema, y un bosquejo corto y sencillo.',
-      date: 'lun, 11 may',
-      dateFormat: '2026/05/11',
-      tipo: 1
-    },
-    {
-      id: 10,
-      titulo: 'Tarea # 3',
-      preview: 'Portafolio Doctrinal',
-      materiaCod: 4,
-      detalles: 'Elabore un portafolio doctrinal personal que reúna los principales conceptos estudiados en la materia. \n\Debe incluir:\n\ \n\ · Definiciones doctrinales clave\n\ · Textos bíblicos base\n\ · Esquemas doctrinales breves\n\ · Errores doctrinales comunes\n\ · Aplicaciones ministeriales\n\ \n\Puede presentarse en cuaderno, Word o PDF.\n\ \n\Debe estar ordenado, claro y útil como herramienta de consulta para el ministerio.',
-      date: 'mie, 20 may',
-      dateFormat: '2026/05/20',
-      tipo: 1
-    },
-    {
-      id: 12,
-      titulo: 'Tarea # 4',
-      preview: 'Bosquejo biblico',
-      materiaCod: 1,
-      detalles: 'Realizar un bosquejo biblico del libro asignado, se compartirá en clase como un reflexión biblico.',
-      date: 'lun, 01 jun',
-      dateFormat: '2026/06/01',
-      tipo: 1
-    },
-    {
-      id: 13,
-      titulo: 'Tarea # 5',
-      preview: 'Recurso didactico',
-      materiaCod: 1,
-      detalles: 'Desarrollar un recurso didáctico pedagógico para la enseñanza de los libros del nuevo testamento con el fin de facilitar la comprensión, razonamiento y la creatividad. adaptable a los diferentes grupos etarios que se encuentran en las congregaciones.',
-      date: 'lun, 01 jun',
-      dateFormat: '2026/06/01',
-      tipo: 1
-    },
-    {
-      id: 14,
-      titulo: 'Tarea # 3',
-      preview: 'Sondeos FORMA',
-      materiaCod: 2,
-      detalles: 'Complementar los sondeos que se presentan en clase y los aférrate del Libro F.O.R.M.A. del capítulo 1 al 6.',
-      date: 'mar, 02 jun',
-      dateFormat: '2026/06/02',
-      tipo: 1
-    },
-    {
-      id: 15,
-      titulo: 'Tarea # 4',
-      preview: 'DRAMA (lider)',
-      materiaCod: 2,
-      detalles: '<span class="txt-titulo">Representación de Personaje Bíblico (lider)</span><br><img src="the-chosen-ilustration.png" alt="Drama"><br>El estudiante elegirá un personaje bíblico que haya sido un líder destacado en la historia de la redención (por ejemplo, Moisés, David, Nehemías, Pablo, etc.) y preparará una representación dramática de su vida y liderazgo. <br><br> La representación debe incluir:<br> - Contexto histórico y cultural del personaje.<br> - Descripción de su llamado al liderazgo.<br> - Principales desafíos y logros en su liderazgo.<br> - Aplicación práctica de sus principios de liderazgo para los líderes cristianos hoy.<br><br> La presentación puede ser en formato de monólogo, diálogo o escena teatral breve, con una duración de 5 a 10 minutos. Se valorará la creatividad, fidelidad bíblica y la capacidad de comunicar principios de liderazgo a través del drama.',
-      date: 'mar, 02 jun',
-      dateFormat: '2026/06/02',
-      tipo: 1
-    },
-  ];
+  get examenes() {
+    return this.api.examenes();
+  }
 
-  expos: any[] = [
-    {
-      id: 1,
-      grupo: 1,
-      tema: 'Marcos',
-      integrantes: [
-        { id: 2 },
-        { id: 6 },
-        { id: 10 }
-      ],
-      materiaCod: 1,
-      date: 'lun, 20 abr',
-      dateFormat: '2026/04/20',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 2,
-      grupo: 2,
-      tema: 'Juan',
-      integrantes: [
-        { id: 3 },
-        { id: 7 },
-        { id: 8 }
-      ],
-      materiaCod: 1,
-      date: 'lun, 20 abr',
-      dateFormat: '2026/04/20',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 3,
-      grupo: 1,
-      tema: 'Leyes de la 1 a la 7',
-      integrantes: [
-        { id: 5 },
-        { id: 4 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 21 abr',
-      dateFormat: '2026/04/21',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 4,
-      grupo: 1,
-      tema: 'Caracteristicas del pastor / predicador',
-      integrantes: [
-        { id: 3 },
-        { id: 12 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 21 abr',
-      dateFormat: '2026/04/21',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 5,
-      grupo: 2,
-      tema: 'Leyes de la 8 a la 15',
-      integrantes: [
-        { id: 2 },
-        { id: 1 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 28 abr',
-      dateFormat: '2026/04/28',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 6,
-      grupo: 2,
-      tema: 'El pastor prepara el mensaje al preparar primero su propio corazon',
-      integrantes: [
-        { id: 8 },
-        { id: 10 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 28 abr',
-      dateFormat: '2026/04/28',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 14,
-      grupo: 4,
-      integrantes: [
-        { id: 1 },
-        { id: 4 }
-      ],
-      materiaCod: 1,
-      tema: 'Hebreos',
-      severity: 'info',
-      date: 'lun, 04 may',
-      dateFormat: '2026/05/04',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 8,
-      grupo: 3,
-      tema: 'Leyes de la 16 a la 21',
-      integrantes: [
-        { id: 7 },
-        { id: 6 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 06 may',
-      dateFormat: '2026/05/06',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 14,
-      grupo: 4,
-      tema: 'El Corazon y el caracter del lider',
-      integrantes: [
-        { id: 3 },
-        { id: 10 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 12 may',
-      dateFormat: '2026/05/12',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 9,
-      grupo: 4,
-      tema: 'Nueve claves para preparar mensajes biblicos, primera parte (A,B,C,D)',
-      integrantes: [
-        { id: 2 },
-        { id: 11 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 12 may',
-      dateFormat: '2026/05/12',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 7,
-      grupo: 5,
-      tema: 'Nueve claves para preparar mensajes biblicos, segunda parte (E,F,G,H,I)',
-      integrantes: [
-        { id: 1 },
-        { id: 4 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 12 may',
-      dateFormat: '2026/05/12',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 10,
-      grupo: 1,
-      integrantes: [
-        { id: 3 },
-        { id: 5 },
-        { id: 1 }
-      ],
-      materiaCod: 4,
-      tema: `<b>Espiritu, Conocible, Eterno</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).`,
-      date: 'mie, 13 may',
-      dateFormat: '2026/05/13',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 11,
-      grupo: 2,
-      integrantes: [
-        { id: 4 },
-        { id: 2 },
-        { id: 6 }
-      ],
-      materiaCod: 4,
-      tema: '<b>Onmipotente, Onmipresente, Onmisciente y Sabio</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'mie, 13 may',
-      dateFormat: '2026/05/13',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 12,
-      grupo: 3,
-      integrantes: [
-        { id: 9 },
-        { id: 8 }
-      ],
-      materiaCod: 4,
-      tema: '<b>Fiel, Veraz y Bueno</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'mie, 13 may',
-      dateFormat: '2026/05/13',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 13,
-      grupo: 4,
-      integrantes: [
-        { id: 7 },
-        { id: 10 }
-      ],
-      materiaCod: 4,
-      tema: '<b>Paciente, Amoroso y Lleno de Gracia</b> <br> Exposición de los atributos de Dios y sus nombres (Explicación del atributo o nombre, textos bíblicos, ejemplo bíblico).',
-      date: 'mie, 13 may',
-      dateFormat: '2026/05/13',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 15,
-      grupo: 3,
-      tema: 'Pauta para los devocionales',
-      integrantes: [
-        { id: 5 },
-        { id: 9 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 19 may',
-      dateFormat: '2026/05/19',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 17,
-      grupo: 5,
-      tema: 'Desata tu FORMA para la vida',
-      integrantes: [
-        { id: 9 },
-        { id: 8 }
-      ],
-      materiaCod: 2,
-      date: 'mar, 19 may',
-      dateFormat: '2026/05/19',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 16,
-      grupo: 3,
-      integrantes: [
-        { id: 5 },
-        { id: 9 }
-      ],
-      materiaCod: 1,
-      tema: 'Efesios',
-      date: 'lun, 25 may',
-      dateFormat: '2026/05/25',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 18,
-      grupo: 6,
-      tema: 'Mandamientos 1 al 5 de expresion oral',
-      integrantes: [
-        { id: 7 },
-        { id: 6 },
-        { id: 14 }
-      ],
-      materiaCod: 3,
-      date: 'mar, 26 may',
-      dateFormat: '2026/05/26',
-      done: false,
-      tipo: 1
-    }
-  ];
+  get tareas() {
+    return this.api.tareas()
+      .slice()
+      .sort((a, b) => this.compareByDateAsc(a, b));
+  }
 
-  predicas: any[] = [
-    {
-      id: 1,
-      libro: 'Mateo',
-      encargadoCod: 1,
-      materiaCod: 1,
-      date: 'lun, 27 abr',
-      dateFormat: '2026/04/27',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 4,
-      libro: 'Apocalipsis',
-      encargadoCod: 4,
-      materiaCod: 1,
-      date: 'lun, 04 may',
-      dateFormat: '2026/05/04',
-      done: true,
-      tipo: 1
-    },
-    {
-      id: 10,
-      libro: 'Filemon',
-      encargadoCod: 10,
-      materiaCod: 1,
-      date: 'lun, 11 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 5,
-      libro: 'Galatas',
-      encargadoCod: 5,
-      materiaCod: 1,
-      date: 'lun, 11 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 6,
-      libro: '2 Corintios',
-      encargadoCod: 6,
-      materiaCod: 1,
-      date: 'lun, 18 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 2,
-      libro: 'Judas',
-      encargadoCod: 2,
-      materiaCod: 1,
-      date: 'lun, 18 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 7,
-      libro: '1 Timoteo',
-      encargadoCod: 7,
-      materiaCod: 1,
-      date: 'lun, 25 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 3,
-      libro: 'Romanos',
-      encargadoCod: 3,
-      materiaCod: 1,
-      date: 'lun, 25 may',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 9,
-      libro: '1 Pedro',
-      encargadoCod: 9,
-      materiaCod: 1,
-      date: 'lun, 01 jun',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    },
-    {
-      id: 8,
-      libro: 'Santiago',
-      encargadoCod: 8,
-      materiaCod: 1,
-      date: 'lun, 01 jun',
-      dateFormat: '2026/06/01',
-      done: false,
-      tipo: 1
-    }
-  ];
+  get expos() {
+    return this.api.expos()
+      .slice()
+      .sort((a, b) => {
+        const fechaCmp = this.compareByDateAsc(a, b);
+        if (fechaCmp === 0) {
+          return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' });
+        }
+        return fechaCmp;
+      });
+  }
 
-  companeros: any = [
-    {
-      id: 1,
-      apodo: 'Caste',
-      nombre: 'Josue Castellon',
-      foto: 'fotos/caste.png'
-    },
-    {
-      id: 2,
-      apodo: 'Rebe',
-      nombre: 'Rebeca Cornejo',
-      foto: 'fotos/rebe.png'
-    },
-    {
-      id: 3,
-      apodo: 'Colin',
-      nombre: 'Colin Carvell',
-      foto: 'fotos/colin.png'
-    },
-    {
-      id: 4,
-      apodo: 'Salvador',
-      nombre: 'Salvador Romero',
-      foto: 'fotos/salva.png'
-    },
-    {
-      id: 5,
-      apodo: 'Mario',
-      nombre: 'Mario Jeremias',
-      foto: 'fotos/mario.png'
-    },
-    {
-      id: 6,
-      apodo: 'Jasen',
-      nombre: 'Jasen de Jesus',
-      foto: 'fotos/jasen.png'
-    },
-    {
-      id: 7,
-      apodo: 'Ericka',
-      nombre: 'Ericka de Mena',
-      foto: 'fotos/ericka.png'
-    },
-    {
-      id: 8,
-      apodo: 'Lukas',
-      nombre: 'Lukas Gonzalez',
-      foto: 'fotos/lukas.png'
-    },
-    {
-      id: 9,
-      apodo: 'Ricky',
-      nombre: 'Ricky Bonilla',
-      foto: 'fotos/ricky.png'
-    },
-    {
-      id: 10,
-      apodo: 'DJ',
-      nombre: 'David Josue',
-      foto: 'fotos/dj.png'
-    },
-    {
-      id: 11,
-      apodo: 'Javy',
-      nombre: 'Javy Saenz',
-      foto: 'fotos/male.png'
-    },
-    {
-      id: 12,
-      apodo: 'Senia',
-      nombre: 'Senia Flores',
-      foto: 'fotos/female.png'
-    },
-    {
-      id: 14,
-      apodo: 'Jonathan',
-      nombre: 'Jonathan',
-      foto: 'fotos/male.png'
-    }
-  ]
+  get predicas() {
+    return this.api.predicas();
+  }
 
   tareasFiltered: any[] = [];
   exposFiltered: any[] = [];
   examenFiltered: any[] = [];
   predicasFiltered: any[] = [];
 
-  //tareas: any[] = [];
+  formatearFechas(dateStr: string) {
+    //return 'siu';
+    return this.dateService.transformarFechaApi(dateStr);
+  }
 
-  //gOnInit() {
-  // this.tareas = [
-  //   { id: 0, titulo: 'Título 1', materia:'Panorama NT', detalles: 'Detalles 1' , tipo: 1 },
-  //   { id: 1, titulo: 'Título 2', materia:'Panorama NT', detalles: 'Detalles 2' , tipo: 1 },
-  //   { id: 2, titulo: 'Título 3',  materia:'Panorama NT', detalles: 'Detalles 3', tipo: 1  }
-  // ];
-  //}
+  private normalizeCompaneroId(id: number | string): string {
+    return typeof id === 'number' ? `compa#${id}` : String(id);
+  }
+
+  private normalizeMateriaId(id: number | string): string {
+    return typeof id === 'number' ? `materia#${id}` : String(id);
+  }
 
   private buildLookups() {
-    this.companeroMap = new Map(this.companeros.map((compa: any) => [compa.id, compa]));
-    this.materiaMap = new Map(this.materias.map((materia: any) => [materia.id, materia]));
+    this.companeroMap = new Map(
+      this.api.companeros().map((compa: any) => [String(compa.id), compa])
+    );
+    this.materiaMap = new Map(
+      this.api.materias().map((materia: any) => [String(materia.id), materia])
+    );
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    await Promise.all([
+      this.api.getResource('materias'),
+      this.api.getResource('companeros'),
+      this.api.getResource('predicas'),
+      this.api.getResource('examenes'),
+      this.api.getResource('expo'),
+      this.api.getResource('tareas')
+    ]);
     this.buildLookups();
     this.onMenuClick(1);
     this.menuItems = [
@@ -827,19 +197,35 @@ export class AppComponent implements OnInit {
   }
 
   getFoto(id: number) {
-    return this.companeroMap.get(id)?.foto ?? '';
+    console.log(this.normalizeCompaneroId(id));
+    return this.companeroMap.get(this.normalizeCompaneroId(id))?.foto ?? '';
   }
 
-  getApodo(id: number) {
-    return this.companeroMap.get(id)?.apodo ?? '';
+  getNombre(id: number) {
+    console.log(this.normalizeCompaneroId(id));
+    return this.companeroMap.get(this.normalizeCompaneroId(id))?.nombre ?? '';
   }
 
-  getMateriaName(id: number) {
-    return this.materiaMap.get(id)?.name ?? '';
+  getMateriaName(id: number | string) {
+    const normalized = this.normalizeMateriaId(id);
+    /* Intenta buscar con clave normalizada primero, luego solo con el número */
+    let result = this.materiaMap.get(normalized);
+    if (!result && typeof id === 'string' && id.includes('#')) {
+      const numOnly = id.split('#')[1];
+      result = this.materiaMap.get(numOnly);
+    }
+    return result?.nombre ?? '';
   }
 
-  getMateriaColor(id: number) {
-    return this.materiaMap.get(id)?.severity ?? '';
+  getMateriaColor(id: number | string) {
+    const normalized = this.normalizeMateriaId(id);
+    /* Intenta buscar con clave normalizada primero, luego solo con el número */
+    let result = this.materiaMap.get(normalized);
+    if (!result && typeof id === 'string' && id.includes('#')) {
+      const numOnly = id.split('#')[1];
+      result = this.materiaMap.get(numOnly);
+    }
+    return result?.severity ?? '';
   }
 
   getAccordionStyle(index: number) {
@@ -864,22 +250,32 @@ export class AppComponent implements OnInit {
     const filtrarExamen2 = this.filtrarPorFecha(filtrarExamen);
     const filtrarExpos2 = this.filtrarPorFecha(filtrarExpos);
     const filtrarPredicas = this.filtrarPorFecha(this.predicas);
-    this.examenFiltered = filtrarExamen2.map(item => this.updateMateriaSeverity(item));
-    this.tareasFiltered = filtrarTareas2.map(item => this.updateMateriaSeverity(item));
-    this.predicasFiltered = filtrarPredicas.map((item: any) =>
-    ({
-      ...item,
-      ...this.updateMateriaSeverity(item),
-      ...this.addFotoApodoUser(item)
-    })
-    );
+    this.examenFiltered = filtrarExamen2
+      .slice()
+      .sort((a, b) => this.compareByDateAsc(a, b))
+      .map(item => this.updateMateriaSeverity(item));
+    this.tareasFiltered = filtrarTareas2
+      .slice()
+      .sort((a, b) => this.compareByDateAsc(a, b))
+      .map(item => this.updateMateriaSeverity(item));
+    this.predicasFiltered = filtrarPredicas
+      .slice()
+      .sort((a, b) => this.compareByDateAsc(a, b))
+      .map((item: any) => ({
+        ...item,
+        ...this.updateMateriaSeverity(item),
+        ...this.integrateFotoWithName(item)
+      }));
+    console.log(this.predicasFiltered)
     this.exposFiltered = filtrarExpos2.map((expo: any) =>
     ({
       ...expo,
       ...this.updateMateriaSeverity(expo),
-      integrantes: expo.integrantes.map((item: any) => this.addFotoApodoUser(item)),
+      integrantes: expo.integrantes.map((item: any) => this.integrateFotoWithName(item)),
     })
     );
+    console.log("expos");
+    console.log(this.exposFiltered);
   }
 
   onFechaChange(event: any) {
@@ -892,19 +288,32 @@ export class AppComponent implements OnInit {
 
 
   updateMateriaSeverity(item: any) {
+    /* Soporta ambos formatos: API (materia string) y local (materiaCod número) */
+    const materiaId = item.materia || this.normalizeMateriaId(item.materiaCod);
     return {
       ...item,
-      materia: this.getMateriaName(item.materiaCod),
-      severity: this.getMateriaColor(item.materiaCod),
+      materia: this.getMateriaName(materiaId),
+      severity: this.getMateriaColor(materiaId),
     };
   }
 
-  addFotoApodoUser(item: any) {
+
+  integrateFotoWithName(item: any) {
     return {
       ...item,
-      foto: this.getFoto(item.id),
-      compa: this.getApodo(item.id)
+      foto: this.getFoto(item.compa),
+      compa: this.getNombre(item.compa)
     };
+  }
+
+  private compareByDateAsc(a: any, b: any): number {
+    const parse = (item: any) => {
+      const dateStr = item.dateFormatted ?? '';
+      const time = Date.parse(dateStr);
+      return Number.isNaN(time) ? Number.MAX_SAFE_INTEGER : time;
+    };
+
+    return parse(a) - parse(b);
   }
 
   private filtrarPorFecha(lista: any[]) {
@@ -913,7 +322,7 @@ export class AppComponent implements OnInit {
     return this.selectedFecha === 0
       ? lista
       : lista.filter(a => {
-        const activityDate = new Date(a.dateFormat);
+        const activityDate = new Date(a.dateFormatted);
         activityDate.setHours(0, 0, 0, 0);
         if (this.selectedFecha === 1) {
           return activityDate >= today; // Futuras (incluye hoy)
@@ -924,9 +333,15 @@ export class AppComponent implements OnInit {
   }
 
   private filtrarPorMateria(lista: any[]) {
-    return this.selectedMateria === 0
+    return this.selectedMateria === 'materia#0'
       ? lista
-      : lista.filter(a => a.materiaCod === this.selectedMateria);
+      : lista.filter(a => {
+        /* Soporta ambos formatos: API (materia string) y local (materiaCod número) */
+        if (a.materia) {
+          return a.materia === this.selectedMateria;
+        }
+        return this.normalizeMateriaId(a.materiaCod) === this.selectedMateria;
+      });
   }
 
 

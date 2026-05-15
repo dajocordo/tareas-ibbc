@@ -30,6 +30,10 @@ yarn-error.log
 
 /CAMBIOS.md
 
+src/environments/environment.ts
+src/environments/environment.prod.ts
+src/environments/environment.*.ts
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
